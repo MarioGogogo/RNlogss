@@ -181,6 +181,7 @@ function App() {
       color: '#ea580c',
       onPress: () => {
         bump();
+        RNLogs.log(LogLevel.DEBUG, '调试信息', {detail: 42});
         setTimeout(() => {
           Promise.reject(new Error('触发异步异常,错误信息'));
         }, 0);
