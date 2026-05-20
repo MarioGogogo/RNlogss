@@ -1,4 +1,4 @@
-import type {LogEvent, NativeModule, UserInfo} from '../types';
+import type {NativeModule} from '../types';
 
 export const NoOpNativeModule: NativeModule = {
   async init(): Promise<void> {

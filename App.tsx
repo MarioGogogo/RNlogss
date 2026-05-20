@@ -88,10 +88,11 @@ function App() {
       email: 'test@example.com',
     });
 
-    RNLogs.addBreadcrumb('App launched', 'lifecycle');
-    RNLogs.trackScreen('HomeScreen');
-    RNLogs.log(LogLevel.INFO, 'App started', {foo: 'bar'});
-    RNLogs.log(LogLevel.DEBUG, 'Debug info', {detail: 42});
+    // RNLogs.addBreadcrumb('App launched', 'lifecycle');
+    // RNLogs.trackScreen('HomeScreen');
+    //  RNLogs.log(LogLevel.DEBUG, 'Debug info', {detail: 42});
+    RNLogs.log(LogLevel.INFO, 'App初始化加载', {foo: 'bar'});
+   
 
     // 定时刷新离线队列大小
     const timer = setInterval(refreshOfflineSize, 3000);
@@ -181,7 +182,7 @@ function App() {
       onPress: () => {
         bump();
         setTimeout(() => {
-          Promise.reject(new Error('异步 Promise 异常'));
+          Promise.reject(new Error('触发异步异常,错误信息'));
         }, 0);
       },
     },

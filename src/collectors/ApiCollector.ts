@@ -8,6 +8,21 @@ export const RNLOGS_INTERNAL_HEADER = 'X-RNLogs-Internal';
 
 let isPatched = false;
 
+/** 判断是否为本地开发服务器请求 */
+function isLocalRequest(url: string): boolean {
+  try {
+    const parsed = new URL(url) as any;
+    const hostname = parsed.hostname;
+    return (
+      hostname === 'localhost' ||
+      hostname === '127.0.0.1' ||
+      hostname === '::1'
+    );
+  } catch {
+    return false;
+  }
+}
+
 export class ApiCollector {
   private onLog: OnLogCallback;
 
@@ -35,6 +50,11 @@ export class ApiCollector {
       // 跳过 SDK 自身的上传请求，避免无限循环
       const headers = init?.headers as Record<string, string> | undefined;
       if (headers?.[RNLOGS_INTERNAL_HEADER]) {
+        return originalFetch(input as RequestInfo, init);
+      }
+
+      // 跳过本地开发服务器请求（Metro symbolicate、HMR 等）
+      if (isLocalRequest(url)) {
         return originalFetch(input as RequestInfo, init);
       }
 
