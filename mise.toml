@@ -1,0 +1,13 @@
+# 新项目/mise.toml
+
+[tools]
+node = "20.19.6"
+java = "zulu-17.64.15.0"  # 新版 RN 强制要求 JDK 17
+ruby = "2.6.10"
+
+[env]
+# 这里会自动变成 JDK 17 的路径
+JAVA_HOME = "/Users/lovewcc/.local/share/mise/installs/java/zulu-17.64.15.0"
+
+# 指向标准 Android SDK
+ANDROID_HOME = "/Users/lovewcc/Library/Android/sdk"
