@@ -29,10 +29,42 @@ std::shared_ptr<TurboModule> javaModuleProvider(const std::string &name, const J
 } // namespace facebook::react
 
 extern "C" JNIEXPORT __attribute__((visibility("default"))) void JNICALL
-Java_com_rnlogss_RNLogsModule_nativeInstall(JNIEnv* env, jobject thiz, jlong jsiRuntimePtr) {
+Java_com_rnlogss_RNLogsModule_nativeInstall(JNIEnv* env, jobject thiz, jlong jsiRuntimePtr, jstring jCacheDir) {
     auto runtime = reinterpret_cast<facebook::jsi::Runtime*>(jsiRuntimePtr);
     if (runtime) {
         facebook::jsi::RNLogsJSIBinding::install(*runtime);
+    }
+
+    if (jCacheDir != nullptr) {
+        const char* cacheDirChars = env->GetStringUTFChars(jCacheDir, nullptr);
+        if (cacheDirChars != nullptr) {
+            std::string cacheDir(cacheDirChars);
+            facebook::jsi::RNLogsJSIBinding::getQueue()->setCacheDir(cacheDir);
+            env->ReleaseStringUTFChars(jCacheDir, cacheDirChars);
+        }
+    }
+}
+
+extern "C" JNIEXPORT __attribute__((visibility("default"))) jstring JNICALL
+Java_com_rnlogss_RNLogsModule_nativeFetchBatchToUpload(JNIEnv* env, jobject thiz) {
+    auto batch = facebook::jsi::RNLogsJSIBinding::getQueue()->fetchNextBatch();
+    if (batch.first.empty() || batch.second.empty()) {
+        return nullptr;
+    }
+    // 打包成 JSON 格式回传给 Java 层，结构为：{"batchId": "xxx", "logs": [...]}
+    std::string jsonResult = "{\"batchId\":\"" + batch.first + "\",\"logs\":" + batch.second + "}";
+    return env->NewStringUTF(jsonResult.c_str());
+}
+
+extern "C" JNIEXPORT __attribute__((visibility("default"))) void JNICALL
+Java_com_rnlogss_RNLogsModule_nativeConfirmUpload(JNIEnv* env, jobject thiz, jstring jBatchId, jboolean jSuccess) {
+    if (jBatchId != nullptr) {
+        const char* batchIdChars = env->GetStringUTFChars(jBatchId, nullptr);
+        if (batchIdChars != nullptr) {
+            std::string batchId(batchIdChars);
+            facebook::jsi::RNLogsJSIBinding::getQueue()->confirmBatch(batchId, jSuccess == JNI_TRUE);
+            env->ReleaseStringUTFChars(jBatchId, batchIdChars);
+        }
     }
 }
 

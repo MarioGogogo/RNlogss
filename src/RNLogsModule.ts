@@ -53,7 +53,8 @@ class RNLogsModule {
     // 触发 NativeModule 并同步安装 JSI 绑定
     if (NativeModules.RNLogsModule && typeof NativeModules.RNLogsModule.install === 'function') {
       try {
-        const success = NativeModules.RNLogsModule.install();
+        const endpoint = this.config.upload?.endpoint ?? '';
+        const success = NativeModules.RNLogsModule.install(endpoint);
         console.log('[RNLogs] JSI installation result:', success);
       } catch (err) {
         console.error('[RNLogs] Failed to install JSI:', err);

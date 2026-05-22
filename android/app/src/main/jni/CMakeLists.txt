@@ -14,6 +14,8 @@ target_sources(
     OnLoad.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../cpp/jsi/RNLogsJSIBinding.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../cpp/core/LogQueue.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../cpp/utils/Compression.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../cpp/utils/Crypto.cpp
 )
 
 # 挂载头文件包含目录
@@ -22,6 +24,7 @@ target_include_directories(
     PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../cpp/jsi
     ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../cpp/core
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../cpp/utils
 )
 
 # 链接日志库
