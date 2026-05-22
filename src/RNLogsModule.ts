@@ -54,7 +54,7 @@ class RNLogsModule {
     if (NativeModules.RNLogsModule && typeof NativeModules.RNLogsModule.install === 'function') {
       try {
         const endpoint = this.config.upload?.endpoint ?? '';
-        const success = NativeModules.RNLogsModule.install(endpoint);
+        const success = NativeModules.RNLogsModule.install(endpoint, this.sessionId);
         console.log('[RNLogs] JSI installation result:', success);
       } catch (err) {
         console.error('[RNLogs] Failed to install JSI:', err);
@@ -92,11 +92,6 @@ class RNLogsModule {
         NoOpNativeModule.sendBatch(batch).catch(() => {
           /* no-op */
         });
-
-        // 写入 C++
-        if (global.__rnlogsInternal) {
-          global.__rnlogsInternal.writeLogBatch(JSON.stringify(batch));
-        }
       },
       this.config,
     );
@@ -143,7 +138,7 @@ class RNLogsModule {
       message,
       timestamp: Date.now(),
       data,
-      user: this.user ?? undefined,
+      user: this.user || undefined,
       tags: Object.keys(this.tags).length > 0 ? {...this.tags} : undefined,
       context: {
         environment: this.config.environment,

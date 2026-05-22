@@ -59,8 +59,37 @@ void RNLogsJSIBinding::install(Runtime& runtime) {
         1,
         [](Runtime& rt, const Value& thisVal, const Value* args, size_t count) -> Value {
             if (count > 0 && args[0].isString()) {
-                std::string batchJson = args[0].asString(rt).utf8(rt);
-                getQueue()->push(batchJson);
+                std::string batchStr = args[0].asString(rt).utf8(rt);
+                if (!batchStr.empty()) {
+                    if (batchStr[0] != '[') {
+                        getQueue()->push(batchStr);
+                    } else {
+                        // 使用括号匹配法分拆 JSON 数组
+                        int braceCount = 0;
+                        size_t start = 0;
+                        bool inString = false;
+                        for (size_t i = 0; i < batchStr.length(); i++) {
+                            char c = batchStr[i];
+                            if (c == '"' && (i == 0 || batchStr[i-1] != '\\')) {
+                                inString = !inString;
+                            }
+                            if (!inString) {
+                                if (c == '{') {
+                                    if (braceCount == 0) {
+                                        start = i;
+                                    }
+                                    braceCount++;
+                                } else if (c == '}') {
+                                    braceCount--;
+                                    if (braceCount == 0) {
+                                        std::string singleLog = batchStr.substr(start, i - start + 1);
+                                        getQueue()->push(singleLog);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
             return Value::undefined();
         }
@@ -85,7 +114,7 @@ void RNLogsJSIBinding::install(Runtime& runtime) {
         PropNameID::forAscii(runtime, "flush"),
         0,
         [](Runtime& rt, const Value& thisVal, const Value* args, size_t count) -> Value {
-            getQueue()->clear();
+            getQueue()->persistMemoryQueue();
             return Value::undefined();
         }
     );

@@ -27,6 +27,7 @@ class RNLogsModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
 
     // 默认测试 Endpoint，也可以动态获取
     private var uploadEndpoint = "https://httpbin.org/post"
+    private var uploadSessionId = "sess-${System.currentTimeMillis()}"
     private val handler = Handler(Looper.getMainLooper())
     private var isUploading = false
     private var pollerStarted = false
@@ -36,8 +37,8 @@ class RNLogsModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
             try {
                 performUpload()
             } finally {
-                // 每 10 秒轮询拉取并上报一次
-                handler.postDelayed(this, 10000)
+                // 每 5 秒轮询拉取并上报一次
+                handler.postDelayed(this, 5000)
             }
         }
     }
@@ -47,13 +48,16 @@ class RNLogsModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     }
 
     @ReactMethod(isBlockingSynchronousMethod = true)
-    fun install(endpoint: String): Boolean {
+    fun install(endpoint: String, sessionId: String): Boolean {
         try {
             val jsContext = reactApplicationContext.javaScriptContextHolder
             val jsiRuntimePtr = jsContext?.get() ?: 0L
             if (jsiRuntimePtr != 0L) {
                 if (endpoint.isNotEmpty()) {
                     uploadEndpoint = endpoint
+                }
+                if (sessionId.isNotEmpty()) {
+                    uploadSessionId = sessionId
                 }
                 // 获取 Android App 本地缓存私有目录并传入 C++
                 val cacheDir = reactApplicationContext.cacheDir.absolutePath + "/rnlogs"
@@ -91,11 +95,14 @@ class RNLogsModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
                     val batchId = jsonObject.getString("batchId")
                     val logsArray = jsonObject.getJSONArray("logs")
 
-                    // 构造统一的上报 Payload 结构
+                    // 构造统一的上报 Payload 结构，补齐必填字段
                     val payload = JSONObject()
                     payload.put("sdk", "rnlogs")
                     payload.put("sdkVersion", "1.0.0")
                     payload.put("batchId", batchId)
+                    payload.put("sessionId", uploadSessionId)
+                    payload.put("timestamp", System.currentTimeMillis())
+                    payload.put("batchSize", logsArray.length())
                     payload.put("events", logsArray)
 
                     val mediaType = "application/json; charset=utf-8".toMediaType()
@@ -111,13 +118,14 @@ class RNLogsModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
 
                     client.newCall(request).enqueue(object : Callback {
                         override fun onFailure(call: Call, e: IOException) {
-                            android.util.Log.e("RNLogsModule", "Failed to upload log batch: $batchId", e)
+                            android.util.Log.e("RNLogsModule", "Failed to upload log batch: $batchId due to network error", e)
                             nativeConfirmUpload(batchId, false)
                             isUploading = false
                         }
 
                         override fun onResponse(call: Call, response: Response) {
                             response.use {
+                                val code = response.code
                                 if (response.isSuccessful) {
                                     android.util.Log.i("RNLogsModule", "Successfully uploaded log batch: $batchId")
                                     nativeConfirmUpload(batchId, true)
@@ -125,8 +133,14 @@ class RNLogsModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
                                     // 递归调用继续拉取下一批积压文件，快速清空磁盘
                                     performUpload()
                                 } else {
-                                    android.util.Log.w("RNLogsModule", "Server rejected logs: ${response.code} for $batchId")
-                                    nativeConfirmUpload(batchId, false)
+                                    android.util.Log.w("RNLogsModule", "Server rejected logs: $code for $batchId")
+                                    if (code in 400..499) {
+                                        // 4xx 视为不可恢复的客户端/格式错误，直接丢弃以防队头阻塞
+                                        nativeConfirmUpload(batchId, true)
+                                    } else {
+                                        // 5xx 或其他暂时性服务错误，重试
+                                        nativeConfirmUpload(batchId, false)
+                                    }
                                     isUploading = false
                                 }
                             }
