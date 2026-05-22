@@ -1,0 +1,829 @@
+Initialized native services in: /Users/lovewcc/.gradle/native
+Initialized jansi services in: /Users/lovewcc/.gradle/native
+Found daemon DaemonInfo{pid=62185, address=[1eafb04a-6d7a-4fa7-9a75-69324f46bf3c port:60338, addresses:[/127.0.0.1]], state=Idle, lastBusy=1779431133440, context=DefaultDaemonContext[uid=36755c8f-e613-45b5-8140-ce990427be7e,javaHome=/Users/lovewcc/.local/share/mise/installs/java/zulu-17.64.15.0/zulu-17.jdk/Contents/Home,javaVersion=17,javaVendor=Azul Systems, Inc.,daemonRegistryDir=/Users/lovewcc/.gradle/daemon,pid=62185,idleTimeout=10800000,priority=NORMAL,applyInstrumentationAgent=true,nativeServicesMode=ENABLED,daemonOpts=-XX:MaxMetaspaceSize=512m,-Xmx2048m,-Dfile.encoding=UTF-8,-Duser.country=CN,-Duser.language=zh,-Duser.variant]} however its context does not match the desired criteria.
+JVM is incompatible.
+Wanted: DaemonRequestContext{jvmCriteria=/Users/lovewcc/.sdkman/candidates/java/17.0.9-zulu/zulu-17.jdk/Contents/Home (no JDK specified, using current Java home), daemonOpts=[-XX:MaxMetaspaceSize=512m, -Xmx2048m, -Dfile.encoding=UTF-8, -Duser.country=CN, -Duser.language=zh, -Duser.variant], applyInstrumentationAgent=true, nativeServicesMode=ENABLED, priority=NORMAL}
+Actual: DefaultDaemonContext[uid=36755c8f-e613-45b5-8140-ce990427be7e,javaHome=/Users/lovewcc/.local/share/mise/installs/java/zulu-17.64.15.0/zulu-17.jdk/Contents/Home,javaVersion=17,javaVendor=Azul Systems, Inc.,daemonRegistryDir=/Users/lovewcc/.gradle/daemon,pid=62185,idleTimeout=10800000,priority=NORMAL,applyInstrumentationAgent=true,nativeServicesMode=ENABLED,daemonOpts=-XX:MaxMetaspaceSize=512m,-Xmx2048m,-Dfile.encoding=UTF-8,-Duser.country=CN,-Duser.language=zh,-Duser.variant]
+
+  Looking for a different daemon...
+The client will now receive all logging from the daemon (pid: 61048). The daemon log file: /Users/lovewcc/.gradle/daemon/9.0.0/daemon-61048.out.log
+Starting 17th build in daemon [uptime: 13 mins 45.63 secs, performance: 100%, GC rate: 0.00/s, heap usage: 0% of 2 GiB, non-heap usage: 36% of 512 MiB]
+Using 10 worker leases.
+Now considering [/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android, /Users/lovewcc/Documents/Me/ReactNative/RNlogss/node_modules/@react-native/gradle-plugin] as hierarchies to watch
+Watching the file system is configured to be enabled if available
+File system watching is active
+Starting Build
+Now considering [/Users/lovewcc/Documents/Me/ReactNative/RNlogss/node_modules/@react-native/gradle-plugin, /Users/lovewcc/Documents/Me/ReactNative/RNlogss/android] as hierarchies to watch
+Resolved plugin [id: 'org.gradle.toolchains.foojay-resolver-convention', version: '0.5.0']
+
+> Configure project :gradle-plugin
+Evaluating project ':gradle-plugin' using build file '/Users/lovewcc/Documents/Me/ReactNative/RNlogss/node_modules/@react-native/gradle-plugin/build.gradle.kts'.
+Resolved plugin [id: 'org.jetbrains.kotlin.jvm', version: '2.1.20', apply: false]
+Resolved plugin [id: 'com.ncorti.ktfmt.gradle', version: '0.22.0']
+
+> Configure project :gradle-plugin:react-native-gradle-plugin
+Evaluating project ':gradle-plugin:react-native-gradle-plugin' using build file '/Users/lovewcc/Documents/Me/ReactNative/RNlogss/node_modules/@react-native/gradle-plugin/react-native-gradle-plugin/build.gradle.kts'.
+Resolved plugin [id: 'org.jetbrains.kotlin.jvm', version: '2.1.20']
+Resolved plugin [id: 'com.ncorti.ktfmt.gradle', version: '0.22.0']
+Resolved plugin [id: 'java-gradle-plugin']
+Build 66610e52-0771-4d1c-b34d-6719042781f8 is started
+Using Kotlin Gradle Plugin gradle85 variant
+kotlin scripting plugin: created the scripting discovery configuration: kotlinScriptDef
+kotlin scripting plugin: created the scripting discovery configuration: testKotlinScriptDef
+
+> Configure project :gradle-plugin:settings-plugin
+Evaluating project ':gradle-plugin:settings-plugin' using build file '/Users/lovewcc/Documents/Me/ReactNative/RNlogss/node_modules/@react-native/gradle-plugin/settings-plugin/build.gradle.kts'.
+Resolved plugin [id: 'org.jetbrains.kotlin.jvm', version: '2.1.20']
+Resolved plugin [id: 'com.ncorti.ktfmt.gradle', version: '0.22.0']
+Resolved plugin [id: 'java-gradle-plugin']
+Using Kotlin Gradle Plugin gradle85 variant
+kotlin scripting plugin: created the scripting discovery configuration: kotlinScriptDef
+kotlin scripting plugin: created the scripting discovery configuration: testKotlinScriptDef
+
+> Configure project :gradle-plugin:shared
+Evaluating project ':gradle-plugin:shared' using build file '/Users/lovewcc/Documents/Me/ReactNative/RNlogss/node_modules/@react-native/gradle-plugin/shared/build.gradle.kts'.
+Resolved plugin [id: 'org.jetbrains.kotlin.jvm', version: '2.1.20']
+Resolved plugin [id: 'com.ncorti.ktfmt.gradle', version: '0.22.0']
+Using Kotlin Gradle Plugin gradle85 variant
+kotlin scripting plugin: created the scripting discovery configuration: kotlinScriptDef
+kotlin scripting plugin: created the scripting discovery configuration: testKotlinScriptDef
+
+> Configure project :gradle-plugin:shared-testutil
+Evaluating project ':gradle-plugin:shared-testutil' using build file '/Users/lovewcc/Documents/Me/ReactNative/RNlogss/node_modules/@react-native/gradle-plugin/shared-testutil/build.gradle.kts'.
+Resolved plugin [id: 'org.jetbrains.kotlin.jvm', version: '2.1.20']
+Resolved plugin [id: 'com.ncorti.ktfmt.gradle', version: '0.22.0']
+Using Kotlin Gradle Plugin gradle85 variant
+kotlin scripting plugin: created the scripting discovery configuration: kotlinScriptDef
+kotlin scripting plugin: created the scripting discovery configuration: testKotlinScriptDef
+Resolved plugin [id: 'com.facebook.react.settings']
+Starting process 'command '/usr/libexec/java_home''. Working directory: /Users/lovewcc/.gradle/daemon/9.0.0 Command: /usr/libexec/java_home -V
+Successfully started process 'command '/usr/libexec/java_home''
+Resolve mutations for :gradle-plugin:settings-plugin:checkKotlinGradlePluginConfigurationErrors (Thread[Execution worker,5,main]) started.
+:gradle-plugin:settings-plugin:checkKotlinGradlePluginConfigurationErrors (Thread[Execution worker,5,main]) started.
+
+> Task :gradle-plugin:settings-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+Skipping task ':gradle-plugin:settings-plugin:checkKotlinGradlePluginConfigurationErrors' as task onlyIf 'errorDiagnostics are present' is false.
+Resolve mutations for :gradle-plugin:shared:checkKotlinGradlePluginConfigurationErrors (Thread[Execution worker,5,main]) started.
+:gradle-plugin:shared:checkKotlinGradlePluginConfigurationErrors (Thread[Execution worker,5,main]) started.
+
+> Task :gradle-plugin:shared:checkKotlinGradlePluginConfigurationErrors SKIPPED
+Skipping task ':gradle-plugin:shared:checkKotlinGradlePluginConfigurationErrors' as task onlyIf 'errorDiagnostics are present' is false.
+Resolve mutations for :gradle-plugin:shared:compileKotlin (Thread[Execution worker,5,main]) started.
+:gradle-plugin:shared:compileKotlin (Thread[Execution worker,5,main]) started.
+
+> Task :gradle-plugin:shared:compileKotlin UP-TO-DATE
+Caching disabled for task ':gradle-plugin:shared:compileKotlin' because:
+  Build cache is disabled
+Skipping task ':gradle-plugin:shared:compileKotlin' as it is up-to-date.
+Resolve mutations for :gradle-plugin:shared:compileJava (Thread[Execution worker,5,main]) started.
+:gradle-plugin:shared:compileJava (Thread[Execution worker,5,main]) started.
+
+> Task :gradle-plugin:shared:compileJava NO-SOURCE
+Skipping task ':gradle-plugin:shared:compileJava' as it has no source files and no previous output files.
+Resolve mutations for :gradle-plugin:shared:processResources (Thread[Execution worker,5,main]) started.
+:gradle-plugin:shared:processResources (Thread[Execution worker,5,main]) started.
+
+> Task :gradle-plugin:shared:processResources NO-SOURCE
+Skipping task ':gradle-plugin:shared:processResources' as it has no source files and no previous output files.
+Resolve mutations for :gradle-plugin:shared:classes (Thread[Execution worker,5,main]) started.
+:gradle-plugin:shared:classes (Thread[Execution worker,5,main]) started.
+
+> Task :gradle-plugin:shared:classes UP-TO-DATE
+Skipping task ':gradle-plugin:shared:classes' as it has no actions.
+Resolve mutations for :gradle-plugin:shared:jar (Thread[Execution worker,5,main]) started.
+:gradle-plugin:shared:jar (Thread[Execution worker,5,main]) started.
+
+> Task :gradle-plugin:shared:jar UP-TO-DATE
+Caching disabled for task ':gradle-plugin:shared:jar' because:
+  Build cache is disabled
+  Not worth caching
+Skipping task ':gradle-plugin:shared:jar' as it is up-to-date.
+work action resolve shared.jar (project :gradle-plugin:shared) (Thread[Execution worker,5,main]) started.
+Resolve mutations for :gradle-plugin:settings-plugin:compileKotlin (Thread[Execution worker,5,main]) started.
+:gradle-plugin:settings-plugin:compileKotlin (Thread[Execution worker,5,main]) started.
+
+> Task :gradle-plugin:settings-plugin:compileKotlin UP-TO-DATE
+Caching disabled for task ':gradle-plugin:settings-plugin:compileKotlin' because:
+  Build cache is disabled
+Skipping task ':gradle-plugin:settings-plugin:compileKotlin' as it is up-to-date.
+Resolve mutations for :gradle-plugin:settings-plugin:compileJava (Thread[Execution worker,5,main]) started.
+:gradle-plugin:settings-plugin:compileJava (Thread[Execution worker,5,main]) started.
+
+> Task :gradle-plugin:settings-plugin:compileJava NO-SOURCE
+Skipping task ':gradle-plugin:settings-plugin:compileJava' as it has no source files and no previous output files.
+Resolve mutations for :gradle-plugin:settings-plugin:pluginDescriptors (Thread[Execution worker,5,main]) started.
+:gradle-plugin:settings-plugin:pluginDescriptors (Thread[Execution worker,5,main]) started.
+
+> Task :gradle-plugin:settings-plugin:pluginDescriptors UP-TO-DATE
+Caching disabled for task ':gradle-plugin:settings-plugin:pluginDescriptors' because:
+  Build cache is disabled
+  Not worth caching
+Skipping task ':gradle-plugin:settings-plugin:pluginDescriptors' as it is up-to-date.
+Resolve mutations for :gradle-plugin:settings-plugin:processResources (Thread[Execution worker,5,main]) started.
+:gradle-plugin:settings-plugin:processResources (Thread[Execution worker,5,main]) started.
+
+> Task :gradle-plugin:settings-plugin:processResources UP-TO-DATE
+Caching disabled for task ':gradle-plugin:settings-plugin:processResources' because:
+  Build cache is disabled
+  Not worth caching
+Skipping task ':gradle-plugin:settings-plugin:processResources' as it is up-to-date.
+Resolve mutations for :gradle-plugin:settings-plugin:classes (Thread[Execution worker,5,main]) started.
+:gradle-plugin:settings-plugin:classes (Thread[Execution worker Thread 2,5,main]) started.
+
+> Task :gradle-plugin:settings-plugin:classes UP-TO-DATE
+Skipping task ':gradle-plugin:settings-plugin:classes' as it has no actions.
+Resolve mutations for :gradle-plugin:settings-plugin:jar (Thread[Execution worker Thread 2,5,main]) started.
+:gradle-plugin:settings-plugin:jar (Thread[Execution worker Thread 2,5,main]) started.
+
+> Task :gradle-plugin:settings-plugin:jar UP-TO-DATE
+Caching disabled for task ':gradle-plugin:settings-plugin:jar' because:
+  Build cache is disabled
+  Not worth caching
+Skipping task ':gradle-plugin:settings-plugin:jar' as it is up-to-date.
+Settings evaluated using settings file '/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/settings.gradle'.
+Projects loaded. Root project using build file '/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/build.gradle'.
+Included projects: [root project 'RNlogss', project ':app', project ':react-native-safe-area-context']
+Registering project ':gradle-plugin' in composite build. Will substitute for module ':gradle-plugin-root'.
+Registering project ':gradle-plugin:react-native-gradle-plugin' in composite build. Will substitute for module 'com.facebook.react:react-native-gradle-plugin'.
+Registering project ':gradle-plugin:settings-plugin' in composite build. Will substitute for module 'com.facebook.react:settings-plugin'.
+Registering project ':gradle-plugin:shared' in composite build. Will substitute for module 'com.facebook.react:shared'.
+Registering project ':gradle-plugin:shared-testutil' in composite build. Will substitute for module 'com.facebook.react:shared-testutil'.
+Resolve mutations for :gradle-plugin:react-native-gradle-plugin:checkKotlinGradlePluginConfigurationErrors (Thread[Execution worker Thread 7,5,main]) started.
+:gradle-plugin:react-native-gradle-plugin:checkKotlinGradlePluginConfigurationErrors (Thread[Execution worker Thread 7,5,main]) started.
+
+> Task :gradle-plugin:react-native-gradle-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+Skipping task ':gradle-plugin:react-native-gradle-plugin:checkKotlinGradlePluginConfigurationErrors' as task onlyIf 'errorDiagnostics are present' is false.
+Resolve mutations for :gradle-plugin:react-native-gradle-plugin:compileKotlin (Thread[Execution worker Thread 7,5,main]) started.
+:gradle-plugin:react-native-gradle-plugin:compileKotlin (Thread[Execution worker Thread 7,5,main]) started.
+
+> Task :gradle-plugin:react-native-gradle-plugin:compileKotlin UP-TO-DATE
+Caching disabled for task ':gradle-plugin:react-native-gradle-plugin:compileKotlin' because:
+  Build cache is disabled
+Skipping task ':gradle-plugin:react-native-gradle-plugin:compileKotlin' as it is up-to-date.
+Resolve mutations for :gradle-plugin:react-native-gradle-plugin:compileJava (Thread[Execution worker Thread 7,5,main]) started.
+:gradle-plugin:react-native-gradle-plugin:compileJava (Thread[Execution worker Thread 7,5,main]) started.
+
+> Task :gradle-plugin:react-native-gradle-plugin:compileJava NO-SOURCE
+Skipping task ':gradle-plugin:react-native-gradle-plugin:compileJava' as it has no source files and no previous output files.
+Resolve mutations for :gradle-plugin:react-native-gradle-plugin:pluginDescriptors (Thread[Execution worker Thread 7,5,main]) started.
+:gradle-plugin:react-native-gradle-plugin:pluginDescriptors (Thread[Execution worker Thread 7,5,main]) started.
+
+> Task :gradle-plugin:react-native-gradle-plugin:pluginDescriptors UP-TO-DATE
+Caching disabled for task ':gradle-plugin:react-native-gradle-plugin:pluginDescriptors' because:
+  Build cache is disabled
+  Not worth caching
+Skipping task ':gradle-plugin:react-native-gradle-plugin:pluginDescriptors' as it is up-to-date.
+Resolve mutations for :gradle-plugin:react-native-gradle-plugin:processResources (Thread[Execution worker Thread 7,5,main]) started.
+:gradle-plugin:react-native-gradle-plugin:processResources (Thread[Execution worker Thread 7,5,main]) started.
+
+> Task :gradle-plugin:react-native-gradle-plugin:processResources UP-TO-DATE
+Caching disabled for task ':gradle-plugin:react-native-gradle-plugin:processResources' because:
+  Build cache is disabled
+  Not worth caching
+Skipping task ':gradle-plugin:react-native-gradle-plugin:processResources' as it is up-to-date.
+Resolve mutations for :gradle-plugin:react-native-gradle-plugin:classes (Thread[Execution worker Thread 7,5,main]) started.
+:gradle-plugin:react-native-gradle-plugin:classes (Thread[Execution worker Thread 7,5,main]) started.
+
+> Task :gradle-plugin:react-native-gradle-plugin:classes UP-TO-DATE
+Skipping task ':gradle-plugin:react-native-gradle-plugin:classes' as it has no actions.
+Resolve mutations for :gradle-plugin:react-native-gradle-plugin:jar (Thread[Execution worker Thread 7,5,main]) started.
+:gradle-plugin:react-native-gradle-plugin:jar (Thread[Execution worker Thread 7,5,main]) started.
+
+> Task :gradle-plugin:react-native-gradle-plugin:jar UP-TO-DATE
+Caching disabled for task ':gradle-plugin:react-native-gradle-plugin:jar' because:
+  Build cache is disabled
+  Not worth caching
+Skipping task ':gradle-plugin:react-native-gradle-plugin:jar' as it is up-to-date.
+
+> Configure project :app
+Evaluating project ':app' using build file '/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/build.gradle'.
+Using default execution profile
+Build ddb5ef4a-f1a8-4e6c-80b8-3725c5552d75 is started
+Using Kotlin Gradle Plugin gradle85 variant
+C/C++: android.ndkVersion from module build.gradle is [27.1.12297006]
+C/C++: android.ndkPath from module build.gradle is not set
+C/C++: ndk.dir in local.properties is not set
+C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+C/C++: sdkFolder is /Users/lovewcc/Library/Android/sdk
+C/C++: android.ndkVersion from module build.gradle is [27.1.12297006]
+C/C++: android.ndkPath from module build.gradle is not set
+C/C++: ndk.dir in local.properties is not set
+C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+C/C++: sdkFolder is /Users/lovewcc/Library/Android/sdk
+C/C++: android.ndkVersion from module build.gradle is [27.1.12297006]
+C/C++: android.ndkPath from module build.gradle is not set
+C/C++: ndk.dir in local.properties is not set
+C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+C/C++: sdkFolder is /Users/lovewcc/Library/Android/sdk
+C/C++: android.ndkVersion from module build.gradle is [27.1.12297006]
+C/C++: android.ndkPath from module build.gradle is not set
+C/C++: ndk.dir in local.properties is not set
+C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+C/C++: sdkFolder is /Users/lovewcc/Library/Android/sdk
+C/C++: android.ndkVersion from module build.gradle is [27.1.12297006]
+C/C++: android.ndkPath from module build.gradle is not set
+C/C++: ndk.dir in local.properties is not set
+C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+C/C++: sdkFolder is /Users/lovewcc/Library/Android/sdk
+C/C++: android.ndkVersion from module build.gradle is [27.1.12297006]
+C/C++: android.ndkPath from module build.gradle is not set
+C/C++: ndk.dir in local.properties is not set
+C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+C/C++: sdkFolder is /Users/lovewcc/Library/Android/sdk
+C/C++: android.ndkVersion from module build.gradle is [27.1.12297006]
+C/C++: android.ndkPath from module build.gradle is not set
+C/C++: ndk.dir in local.properties is not set
+C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+C/C++: sdkFolder is /Users/lovewcc/Library/Android/sdk
+C/C++: android.ndkVersion from module build.gradle is [27.1.12297006]
+C/C++: android.ndkPath from module build.gradle is not set
+C/C++: ndk.dir in local.properties is not set
+C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+C/C++: sdkFolder is /Users/lovewcc/Library/Android/sdk
+C/C++: android.ndkVersion from module build.gradle is [27.1.12297006]
+C/C++: android.ndkPath from module build.gradle is not set
+C/C++: ndk.dir in local.properties is not set
+C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+C/C++: sdkFolder is /Users/lovewcc/Library/Android/sdk
+C/C++: android.ndkVersion from module build.gradle is [27.1.12297006]
+C/C++: android.ndkPath from module build.gradle is not set
+C/C++: ndk.dir in local.properties is not set
+C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+C/C++: sdkFolder is /Users/lovewcc/Library/Android/sdk
+C/C++: android.ndkVersion from module build.gradle is [27.1.12297006]
+C/C++: android.ndkPath from module build.gradle is not set
+C/C++: ndk.dir in local.properties is not set
+C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+C/C++: sdkFolder is /Users/lovewcc/Library/Android/sdk
+C/C++: android.ndkVersion from module build.gradle is [27.1.12297006]
+C/C++: android.ndkPath from module build.gradle is not set
+C/C++: ndk.dir in local.properties is not set
+C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+C/C++: sdkFolder is /Users/lovewcc/Library/Android/sdk
+C/C++: android.ndkVersion from module build.gradle is [27.1.12297006]
+C/C++: android.ndkPath from module build.gradle is not set
+C/C++: ndk.dir in local.properties is not set
+C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+C/C++: sdkFolder is /Users/lovewcc/Library/Android/sdk
+C/C++: android.ndkVersion from module build.gradle is [27.1.12297006]
+C/C++: android.ndkPath from module build.gradle is not set
+C/C++: ndk.dir in local.properties is not set
+C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+C/C++: sdkFolder is /Users/lovewcc/Library/Android/sdk
+C/C++: android.ndkVersion from module build.gradle is [27.1.12297006]
+C/C++: android.ndkPath from module build.gradle is not set
+C/C++: ndk.dir in local.properties is not set
+C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+C/C++: sdkFolder is /Users/lovewcc/Library/Android/sdk
+C/C++: android.ndkVersion from module build.gradle is [27.1.12297006]
+C/C++: android.ndkPath from module build.gradle is not set
+C/C++: ndk.dir in local.properties is not set
+C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+C/C++: sdkFolder is /Users/lovewcc/Library/Android/sdk
+C/C++: android.ndkVersion from module build.gradle is [27.1.12297006]
+C/C++: android.ndkPath from module build.gradle is not set
+C/C++: ndk.dir in local.properties is not set
+C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+C/C++: sdkFolder is /Users/lovewcc/Library/Android/sdk
+C/C++: android.ndkVersion from module build.gradle is [27.1.12297006]
+C/C++: android.ndkPath from module build.gradle is not set
+C/C++: ndk.dir in local.properties is not set
+C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+C/C++: sdkFolder is /Users/lovewcc/Library/Android/sdk
+C/C++: android.ndkVersion from module build.gradle is [27.1.12297006]
+C/C++: android.ndkPath from module build.gradle is not set
+C/C++: ndk.dir in local.properties is not set
+C/C++: Not considering ANDROID_NDK_HOME because support was removed after deprecation period.
+C/C++: sdkFolder is /Users/lovewcc/Library/Android/sdk
+
+> Configure project :
+Evaluating root project 'RNlogss' using build file '/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/build.gradle'.
+Found project 'project :gradle-plugin:react-native-gradle-plugin' as substitute for module 'com.facebook.react:react-native-gradle-plugin'.
+Ignoring listeners of task graph ready event, as this build (:gradle-plugin) has already executed work.
+
+> Configure project :react-native-safe-area-context
+Evaluating project ':react-native-safe-area-context' using build file '/Users/lovewcc/Documents/Me/ReactNative/RNlogss/node_modules/react-native-safe-area-context/android/build.gradle'.
+Using default execution profile
+Using Kotlin Gradle Plugin gradle85 variant
+All projects evaluated.
+Task path ':app:configureCMakeDebug' matched project ':app'
+Task name matched 'configureCMakeDebug'
+Selected primary task 'configureCMakeDebug' from project :app
+Tasks to be executed: [task ':app:generateAutolinkingNewArchitectureFiles', task ':app:generateAutolinkingPackageList', task ':app:generateCodegenSchemaFromJavaScript', task ':app:generateCodegenArtifactsFromSchema', task ':app:generateReactNativeEntryPoint', task ':react-native-safe-area-context:generateCodegenSchemaFromJavaScript', task ':react-native-safe-area-context:generateCodegenArtifactsFromSchema', task ':react-native-safe-area-context:preBuild', task ':app:preBuild', task ':app:preDebugBuild', task ':app:configureCMakeDebug[arm64-v8a]', task ':app:configureCMakeDebug[armeabi-v7a]', task ':app:configureCMakeDebug[x86]', task ':app:configureCMakeDebug[x86_64]', task ':app:configureCMakeDebug']
+Tasks that were excluded: []
+Resolve mutations for :app:generateAutolinkingNewArchitectureFiles (Thread[Execution worker Thread 6,5,main]) started.
+:app:generateAutolinkingNewArchitectureFiles (Thread[Execution worker Thread 6,5,main]) started.
+
+> Task :app:generateAutolinkingNewArchitectureFiles UP-TO-DATE
+Caching disabled for task ':app:generateAutolinkingNewArchitectureFiles' because:
+  Build cache is disabled
+  Caching has not been enabled for the task
+Skipping task ':app:generateAutolinkingNewArchitectureFiles' as it is up-to-date.
+Resolve mutations for :app:generateAutolinkingPackageList (Thread[Execution worker Thread 6,5,main]) started.
+:app:generateAutolinkingPackageList (Thread[Execution worker Thread 6,5,main]) started.
+
+> Task :app:generateAutolinkingPackageList UP-TO-DATE
+Caching disabled for task ':app:generateAutolinkingPackageList' because:
+  Build cache is disabled
+  Caching has not been enabled for the task
+Skipping task ':app:generateAutolinkingPackageList' as it is up-to-date.
+Resolve mutations for :app:generateCodegenSchemaFromJavaScript (Thread[Execution worker Thread 6,5,main]) started.
+:app:generateCodegenSchemaFromJavaScript (Thread[Execution worker Thread 6,5,main]) started.
+
+> Task :app:generateCodegenSchemaFromJavaScript SKIPPED
+Skipping task ':app:generateCodegenSchemaFromJavaScript' as task onlyIf 'Task satisfies onlyIf spec' is false.
+Resolve mutations for :app:generateCodegenArtifactsFromSchema (Thread[Execution worker Thread 6,5,main]) started.
+:app:generateCodegenArtifactsFromSchema (Thread[Execution worker Thread 6,5,main]) started.
+
+> Task :app:generateCodegenArtifactsFromSchema SKIPPED
+Skipping task ':app:generateCodegenArtifactsFromSchema' as task onlyIf 'Task satisfies onlyIf spec' is false.
+Resolve mutations for :app:generateReactNativeEntryPoint (Thread[Execution worker Thread 6,5,main]) started.
+:app:generateReactNativeEntryPoint (Thread[Execution worker Thread 6,5,main]) started.
+
+> Task :app:generateReactNativeEntryPoint UP-TO-DATE
+Caching disabled for task ':app:generateReactNativeEntryPoint' because:
+  Build cache is disabled
+  Caching has not been enabled for the task
+Skipping task ':app:generateReactNativeEntryPoint' as it is up-to-date.
+Resolve mutations for :react-native-safe-area-context:generateCodegenSchemaFromJavaScript (Thread[Execution worker Thread 6,5,main]) started.
+:react-native-safe-area-context:generateCodegenSchemaFromJavaScript (Thread[Execution worker Thread 6,5,main]) started.
+
+> Task :react-native-safe-area-context:generateCodegenSchemaFromJavaScript UP-TO-DATE
+Caching disabled for task ':react-native-safe-area-context:generateCodegenSchemaFromJavaScript' because:
+  Build cache is disabled
+  Caching has not been enabled for the task
+Skipping task ':react-native-safe-area-context:generateCodegenSchemaFromJavaScript' as it is up-to-date.
+Resolve mutations for :react-native-safe-area-context:generateCodegenArtifactsFromSchema (Thread[Execution worker Thread 6,5,main]) started.
+:react-native-safe-area-context:generateCodegenArtifactsFromSchema (Thread[Execution worker Thread 6,5,main]) started.
+
+> Task :react-native-safe-area-context:generateCodegenArtifactsFromSchema UP-TO-DATE
+Caching disabled for task ':react-native-safe-area-context:generateCodegenArtifactsFromSchema' because:
+  Build cache is disabled
+  Caching has not been enabled for the task
+Skipping task ':react-native-safe-area-context:generateCodegenArtifactsFromSchema' as it is up-to-date.
+Resolve mutations for :react-native-safe-area-context:preBuild (Thread[Execution worker Thread 6,5,main]) started.
+:react-native-safe-area-context:preBuild (Thread[Execution worker Thread 6,5,main]) started.
+
+> Task :react-native-safe-area-context:preBuild UP-TO-DATE
+Skipping task ':react-native-safe-area-context:preBuild' as it has no actions.
+Resolve mutations for :app:preBuild (Thread[Execution worker Thread 6,5,main]) started.
+:app:preBuild (Thread[included builds,5,main]) started.
+
+> Task :app:preBuild UP-TO-DATE
+Skipping task ':app:preBuild' as it has no actions.
+Resolve mutations for :app:preDebugBuild (Thread[included builds,5,main]) started.
+:app:preDebugBuild (Thread[included builds,5,main]) started.
+
+> Task :app:preDebugBuild UP-TO-DATE
+Skipping task ':app:preDebugBuild' as it has no actions.
+Resolve mutations for :app:configureCMakeDebug[arm64-v8a] (Thread[included builds,5,main]) started.
+:app:configureCMakeDebug[arm64-v8a] (Thread[included builds,5,main]) started.
+
+> Task :app:configureCMakeDebug[arm64-v8a] FAILED
+Caching disabled for task ':app:configureCMakeDebug[arm64-v8a]' because:
+  Build cache is disabled
+  Caching has been disabled for the task
+Task ':app:configureCMakeDebug[arm64-v8a]' is not up-to-date because:
+  Task.upToDateWhen is false.
+C/C++: /Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/src/main/jni/CMakeLists.txt debug|arm64-v8a : Start JSON generation. Platform version: 24 min SDK version: arm64-v8a
+C/C++: /Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/src/main/jni/CMakeLists.txt debug|arm64-v8a : rebuilding JSON /Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/.cxx/Debug/1b1h5m4p/arm64-v8a/android_gradle_build.json due to:
+C/C++: /Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/src/main/jni/CMakeLists.txt debug|arm64-v8a : - no fingerprint file, will remove stale configuration folder
+C/C++: /Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/src/main/jni/CMakeLists.txt debug|arm64-v8a : /Users/lovewcc/.sdkman/candidates/java/17.0.9-zulu/zulu-17.jdk/Contents/Home/bin/java \
+  --class-path \
+  /Users/lovewcc/.gradle/caches/modules-2/files-2.1/com.google.prefab/cli/2.1.0/aa32fec809c44fa531f01dcfb739b5b3304d3050/cli-2.1.0-all.jar \
+  com.google.prefab.cli.AppKt \
+  --build-system \
+  cmake \
+  --platform \
+  android \
+  --abi \
+  arm64-v8a \
+  --os-version \
+  24 \
+  --stl \
+  c++_shared \
+  --ndk-version \
+  27 \
+  --output \
+  /var/folders/rx/d3cmk78n1jg5649rt_47qvx40000gn/T/agp-prefab-staging16313481942155382035/staged-cli-output \
+  /Users/lovewcc/.gradle/caches/9.0.0/transforms/f97a0c8835e876dfb08e8efd6d33fd2f/transformed/react-android-0.83.1-debug/prefab \
+  /Users/lovewcc/.gradle/caches/9.0.0/transforms/29919e313b2d3f97cb0d6a9c4fe8034f/transformed/hermes-android-0.14.0-debug/prefab \
+  /Users/lovewcc/.gradle/caches/9.0.0/transforms/b85f62a599074afc3b2ec6cfb7884973/transformed/fbjni-0.7.0/prefab
+
+Starting process 'command '/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/build/intermediates/cxx/Debug/1b1h5m4p/logs/arm64-v8a/prefab_command''. Working directory: /Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app Command: /Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/build/intermediates/cxx/Debug/1b1h5m4p/logs/arm64-v8a/prefab_command 
+Successfully started process 'command '/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/build/intermediates/cxx/Debug/1b1h5m4p/logs/arm64-v8a/prefab_command''
+C/C++: /Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/src/main/jni/CMakeLists.txt debug|arm64-v8a : Received process result: 0
+C/C++: /Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/src/main/jni/CMakeLists.txt debug|arm64-v8a : removing stale contents from '/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/.cxx/Debug/1b1h5m4p/arm64-v8a'
+C/C++: /Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/src/main/jni/CMakeLists.txt debug|arm64-v8a : created folder '/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/.cxx/Debug/1b1h5m4p/arm64-v8a'
+C/C++: /Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/src/main/jni/CMakeLists.txt debug|arm64-v8a : executing cmake /Users/lovewcc/Library/Android/sdk/cmake/3.22.1/bin/cmake \
+  -H/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/src/main/jni \
+  -DCMAKE_SYSTEM_NAME=Android \
+  -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
+  -DCMAKE_SYSTEM_VERSION=24 \
+  -DANDROID_PLATFORM=android-24 \
+  -DANDROID_ABI=arm64-v8a \
+  -DCMAKE_ANDROID_ARCH_ABI=arm64-v8a \
+  -DANDROID_NDK=/Users/lovewcc/Library/Android/sdk/ndk/27.1.12297006 \
+  -DCMAKE_ANDROID_NDK=/Users/lovewcc/Library/Android/sdk/ndk/27.1.12297006 \
+  -DCMAKE_TOOLCHAIN_FILE=/Users/lovewcc/Library/Android/sdk/ndk/27.1.12297006/build/cmake/android.toolchain.cmake \
+  -DCMAKE_MAKE_PROGRAM=/Users/lovewcc/Library/Android/sdk/cmake/3.22.1/bin/ninja \
+  -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/build/intermediates/cxx/Debug/1b1h5m4p/obj/arm64-v8a \
+  -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/build/intermediates/cxx/Debug/1b1h5m4p/obj/arm64-v8a \
+  -DCMAKE_BUILD_TYPE=Debug \
+  -DCMAKE_FIND_ROOT_PATH=/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/.cxx/Debug/1b1h5m4p/prefab/arm64-v8a/prefab \
+  -B/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/.cxx/Debug/1b1h5m4p/arm64-v8a \
+  -GNinja \
+  -DPROJECT_BUILD_DIR=/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/build \
+  -DPROJECT_ROOT_DIR=/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android \
+  -DREACT_ANDROID_DIR=/Users/lovewcc/Documents/Me/ReactNative/RNlogss/node_modules/react-native/ReactAndroid \
+  -DANDROID_STL=c++_shared \
+  -DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON
+
+C/C++: /Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/src/main/jni/CMakeLists.txt debug|arm64-v8a : /Users/lovewcc/Library/Android/sdk/cmake/3.22.1/bin/cmake \
+  -H/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/src/main/jni \
+  -DCMAKE_SYSTEM_NAME=Android \
+  -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
+  -DCMAKE_SYSTEM_VERSION=24 \
+  -DANDROID_PLATFORM=android-24 \
+  -DANDROID_ABI=arm64-v8a \
+  -DCMAKE_ANDROID_ARCH_ABI=arm64-v8a \
+  -DANDROID_NDK=/Users/lovewcc/Library/Android/sdk/ndk/27.1.12297006 \
+  -DCMAKE_ANDROID_NDK=/Users/lovewcc/Library/Android/sdk/ndk/27.1.12297006 \
+  -DCMAKE_TOOLCHAIN_FILE=/Users/lovewcc/Library/Android/sdk/ndk/27.1.12297006/build/cmake/android.toolchain.cmake \
+  -DCMAKE_MAKE_PROGRAM=/Users/lovewcc/Library/Android/sdk/cmake/3.22.1/bin/ninja \
+  -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/build/intermediates/cxx/Debug/1b1h5m4p/obj/arm64-v8a \
+  -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/build/intermediates/cxx/Debug/1b1h5m4p/obj/arm64-v8a \
+  -DCMAKE_BUILD_TYPE=Debug \
+  -DCMAKE_FIND_ROOT_PATH=/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/.cxx/Debug/1b1h5m4p/prefab/arm64-v8a/prefab \
+  -B/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/.cxx/Debug/1b1h5m4p/arm64-v8a \
+  -GNinja \
+  -DPROJECT_BUILD_DIR=/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/build \
+  -DPROJECT_ROOT_DIR=/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android \
+  -DREACT_ANDROID_DIR=/Users/lovewcc/Documents/Me/ReactNative/RNlogss/node_modules/react-native/ReactAndroid \
+  -DANDROID_STL=c++_shared \
+  -DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON
+
+Starting process 'command '/Users/lovewcc/Library/Android/sdk/cmake/3.22.1/bin/cmake''. Working directory: /Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app Command: /Users/lovewcc/Library/Android/sdk/cmake/3.22.1/bin/cmake -H/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/src/main/jni -DCMAKE_SYSTEM_NAME=Android -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_SYSTEM_VERSION=24 -DANDROID_PLATFORM=android-24 -DANDROID_ABI=arm64-v8a -DCMAKE_ANDROID_ARCH_ABI=arm64-v8a -DANDROID_NDK=/Users/lovewcc/Library/Android/sdk/ndk/27.1.12297006 -DCMAKE_ANDROID_NDK=/Users/lovewcc/Library/Android/sdk/ndk/27.1.12297006 -DCMAKE_TOOLCHAIN_FILE=/Users/lovewcc/Library/Android/sdk/ndk/27.1.12297006/build/cmake/android.toolchain.cmake -DCMAKE_MAKE_PROGRAM=/Users/lovewcc/Library/Android/sdk/cmake/3.22.1/bin/ninja -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/build/intermediates/cxx/Debug/1b1h5m4p/obj/arm64-v8a -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/build/intermediates/cxx/Debug/1b1h5m4p/obj/arm64-v8a -DCMAKE_BUILD_TYPE=Debug -DCMAKE_FIND_ROOT_PATH=/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/.cxx/Debug/1b1h5m4p/prefab/arm64-v8a/prefab -B/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/.cxx/Debug/1b1h5m4p/arm64-v8a -GNinja -DPROJECT_BUILD_DIR=/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/build -DPROJECT_ROOT_DIR=/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android -DREACT_ANDROID_DIR=/Users/lovewcc/Documents/Me/ReactNative/RNlogss/node_modules/react-native/ReactAndroid -DANDROID_STL=c++_shared -DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON
+Successfully started process 'command '/Users/lovewcc/Library/Android/sdk/cmake/3.22.1/bin/cmake''
+C/C++: CMake Error at /Users/lovewcc/Documents/Me/ReactNative/RNlogss/node_modules/react-native/ReactAndroid/cmake-utils/ReactNative-application.cmake:64 (add_library):
+C/C++:   Cannot find source file:
+C/C++:     ../../../../cpp/jsi/RNLogsJSIBinding.cpp
+C/C++: Call Stack (most recent call first):
+C/C++:   CMakeLists.txt:8 (include)
+C/C++: CMake Generate step failed.  Build files cannot be regenerated correctly.
+C/C++: /Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/src/main/jni/CMakeLists.txt debug|arm64-v8a : Received process result: 1
+C/C++: /Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/src/main/jni/CMakeLists.txt debug|arm64-v8a : JSON generation completed with problem. Exception: com.android.ide.common.process.ProcessException: -- The C compiler identification is Clang 18.0.2
+-- The CXX compiler identification is Clang 18.0.2
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /Users/lovewcc/Library/Android/sdk/ndk/27.1.12297006/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /Users/lovewcc/Library/Android/sdk/ndk/27.1.12297006/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done
+-- Generating done
+
+C++ build system [configure] failed while executing:
+    /Users/lovewcc/Library/Android/sdk/cmake/3.22.1/bin/cmake \
+      -H/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/src/main/jni \
+      -DCMAKE_SYSTEM_NAME=Android \
+      -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
+      -DCMAKE_SYSTEM_VERSION=24 \
+      -DANDROID_PLATFORM=android-24 \
+      -DANDROID_ABI=arm64-v8a \
+      -DCMAKE_ANDROID_ARCH_ABI=arm64-v8a \
+      -DANDROID_NDK=/Users/lovewcc/Library/Android/sdk/ndk/27.1.12297006 \
+      -DCMAKE_ANDROID_NDK=/Users/lovewcc/Library/Android/sdk/ndk/27.1.12297006 \
+      -DCMAKE_TOOLCHAIN_FILE=/Users/lovewcc/Library/Android/sdk/ndk/27.1.12297006/build/cmake/android.toolchain.cmake \
+      -DCMAKE_MAKE_PROGRAM=/Users/lovewcc/Library/Android/sdk/cmake/3.22.1/bin/ninja \
+      -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/build/intermediates/cxx/Debug/1b1h5m4p/obj/arm64-v8a \
+      -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/build/intermediates/cxx/Debug/1b1h5m4p/obj/arm64-v8a \
+      -DCMAKE_BUILD_TYPE=Debug \
+      -DCMAKE_FIND_ROOT_PATH=/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/.cxx/Debug/1b1h5m4p/prefab/arm64-v8a/prefab \
+      -B/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/.cxx/Debug/1b1h5m4p/arm64-v8a \
+      -GNinja \
+      -DPROJECT_BUILD_DIR=/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/build \
+      -DPROJECT_ROOT_DIR=/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android \
+      -DREACT_ANDROID_DIR=/Users/lovewcc/Documents/Me/ReactNative/RNlogss/node_modules/react-native/ReactAndroid \
+      -DANDROID_STL=c++_shared \
+      -DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON
+  from /Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app
+CMake Error at /Users/lovewcc/Documents/Me/ReactNative/RNlogss/node_modules/react-native/ReactAndroid/cmake-utils/ReactNative-application.cmake:64 (add_library):
+  Cannot find source file:
+
+    ../../../../cpp/jsi/RNLogsJSIBinding.cpp
+Call Stack (most recent call first):
+  CMakeLists.txt:8 (include)
+
+
+CMake Generate step failed.  Build files cannot be regenerated correctly.
+C/C++: /Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/src/main/jni/CMakeLists.txt debug|arm64-v8a : Writing build model to /Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/build/intermediates/cxx/Debug/1b1h5m4p/logs/arm64-v8a/build_model.json
+Build 66610e52-0771-4d1c-b34d-6719042781f8 is closed
+Build ddb5ef4a-f1a8-4e6c-80b8-3725c5552d75 is closed
+
+[Incubating] Problems report is available at: file:///Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':app:configureCMakeDebug[arm64-v8a]'.
+> [CXX1429] error when building with cmake using /Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/src/main/jni/CMakeLists.txt: -- The C compiler identification is Clang 18.0.2
+  -- The CXX compiler identification is Clang 18.0.2
+  -- Detecting C compiler ABI info
+  -- Detecting C compiler ABI info - done
+  -- Check for working C compiler: /Users/lovewcc/Library/Android/sdk/ndk/27.1.12297006/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang - skipped
+  -- Detecting C compile features
+  -- Detecting C compile features - done
+  -- Detecting CXX compiler ABI info
+  -- Detecting CXX compiler ABI info - done
+  -- Check for working CXX compiler: /Users/lovewcc/Library/Android/sdk/ndk/27.1.12297006/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ - skipped
+  -- Detecting CXX compile features
+  -- Detecting CXX compile features - done
+  -- Configuring done
+  -- Generating done
+  
+  C++ build system [configure] failed while executing:
+      /Users/lovewcc/Library/Android/sdk/cmake/3.22.1/bin/cmake \
+        -H/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/src/main/jni \
+        -DCMAKE_SYSTEM_NAME=Android \
+        -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
+        -DCMAKE_SYSTEM_VERSION=24 \
+        -DANDROID_PLATFORM=android-24 \
+        -DANDROID_ABI=arm64-v8a \
+        -DCMAKE_ANDROID_ARCH_ABI=arm64-v8a \
+        -DANDROID_NDK=/Users/lovewcc/Library/Android/sdk/ndk/27.1.12297006 \
+        -DCMAKE_ANDROID_NDK=/Users/lovewcc/Library/Android/sdk/ndk/27.1.12297006 \
+        -DCMAKE_TOOLCHAIN_FILE=/Users/lovewcc/Library/Android/sdk/ndk/27.1.12297006/build/cmake/android.toolchain.cmake \
+        -DCMAKE_MAKE_PROGRAM=/Users/lovewcc/Library/Android/sdk/cmake/3.22.1/bin/ninja \
+        -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/build/intermediates/cxx/Debug/1b1h5m4p/obj/arm64-v8a \
+        -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/build/intermediates/cxx/Debug/1b1h5m4p/obj/arm64-v8a \
+        -DCMAKE_BUILD_TYPE=Debug \
+        -DCMAKE_FIND_ROOT_PATH=/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/.cxx/Debug/1b1h5m4p/prefab/arm64-v8a/prefab \
+        -B/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/.cxx/Debug/1b1h5m4p/arm64-v8a \
+        -GNinja \
+        -DPROJECT_BUILD_DIR=/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/build \
+        -DPROJECT_ROOT_DIR=/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android \
+        -DREACT_ANDROID_DIR=/Users/lovewcc/Documents/Me/ReactNative/RNlogss/node_modules/react-native/ReactAndroid \
+        -DANDROID_STL=c++_shared \
+        -DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON
+    from /Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app
+  CMake Error at /Users/lovewcc/Documents/Me/ReactNative/RNlogss/node_modules/react-native/ReactAndroid/cmake-utils/ReactNative-application.cmake:64 (add_library):
+    Cannot find source file:
+  
+      ../../../../cpp/jsi/RNLogsJSIBinding.cpp
+  Call Stack (most recent call first):
+    CMakeLists.txt:8 (include)
+  
+  
+  CMake Generate step failed.  Build files cannot be regenerated correctly. : com.android.ide.common.process.ProcessException: -- The C compiler identification is Clang 18.0.2
+  -- The CXX compiler identification is Clang 18.0.2
+  -- Detecting C compiler ABI info
+  -- Detecting C compiler ABI info - done
+  -- Check for working C compiler: /Users/lovewcc/Library/Android/sdk/ndk/27.1.12297006/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang - skipped
+  -- Detecting C compile features
+  -- Detecting C compile features - done
+  -- Detecting CXX compiler ABI info
+  -- Detecting CXX compiler ABI info - done
+  -- Check for working CXX compiler: /Users/lovewcc/Library/Android/sdk/ndk/27.1.12297006/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ - skipped
+  -- Detecting CXX compile features
+  -- Detecting CXX compile features - done
+  -- Configuring done
+  -- Generating done
+  
+  C++ build system [configure] failed while executing:
+      /Users/lovewcc/Library/Android/sdk/cmake/3.22.1/bin/cmake \
+        -H/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/src/main/jni \
+        -DCMAKE_SYSTEM_NAME=Android \
+        -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
+        -DCMAKE_SYSTEM_VERSION=24 \
+        -DANDROID_PLATFORM=android-24 \
+        -DANDROID_ABI=arm64-v8a \
+        -DCMAKE_ANDROID_ARCH_ABI=arm64-v8a \
+        -DANDROID_NDK=/Users/lovewcc/Library/Android/sdk/ndk/27.1.12297006 \
+        -DCMAKE_ANDROID_NDK=/Users/lovewcc/Library/Android/sdk/ndk/27.1.12297006 \
+        -DCMAKE_TOOLCHAIN_FILE=/Users/lovewcc/Library/Android/sdk/ndk/27.1.12297006/build/cmake/android.toolchain.cmake \
+        -DCMAKE_MAKE_PROGRAM=/Users/lovewcc/Library/Android/sdk/cmake/3.22.1/bin/ninja \
+        -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/build/intermediates/cxx/Debug/1b1h5m4p/obj/arm64-v8a \
+        -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/build/intermediates/cxx/Debug/1b1h5m4p/obj/arm64-v8a \
+        -DCMAKE_BUILD_TYPE=Debug \
+        -DCMAKE_FIND_ROOT_PATH=/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/.cxx/Debug/1b1h5m4p/prefab/arm64-v8a/prefab \
+        -B/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/.cxx/Debug/1b1h5m4p/arm64-v8a \
+        -GNinja \
+        -DPROJECT_BUILD_DIR=/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/build \
+        -DPROJECT_ROOT_DIR=/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android \
+        -DREACT_ANDROID_DIR=/Users/lovewcc/Documents/Me/ReactNative/RNlogss/node_modules/react-native/ReactAndroid \
+        -DANDROID_STL=c++_shared \
+        -DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON
+    from /Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app
+  CMake Error at /Users/lovewcc/Documents/Me/ReactNative/RNlogss/node_modules/react-native/ReactAndroid/cmake-utils/ReactNative-application.cmake:64 (add_library):
+    Cannot find source file:
+  
+      ../../../../cpp/jsi/RNLogsJSIBinding.cpp
+  Call Stack (most recent call first):
+    CMakeLists.txt:8 (include)
+  
+  
+  CMake Generate step failed.  Build files cannot be regenerated correctly.
+  	at com.android.build.gradle.internal.cxx.process.ExecuteProcessKt.execute(ExecuteProcess.kt:288)
+  	at com.android.build.gradle.internal.cxx.process.ExecuteProcessKt$executeProcess$1.invoke(ExecuteProcess.kt:108)
+  	at com.android.build.gradle.internal.cxx.process.ExecuteProcessKt$executeProcess$1.invoke(ExecuteProcess.kt:106)
+  	at com.android.build.gradle.internal.cxx.timing.TimingEnvironmentKt.time(TimingEnvironment.kt:32)
+  	at com.android.build.gradle.internal.cxx.process.ExecuteProcessKt.executeProcess(ExecuteProcess.kt:106)
+  	at com.android.build.gradle.internal.cxx.process.ExecuteProcessKt.executeProcess$default(ExecuteProcess.kt:85)
+  	at com.android.build.gradle.tasks.CmakeQueryMetadataGenerator.executeProcess(CmakeFileApiMetadataGenerator.kt:59)
+  	at com.android.build.gradle.tasks.ExternalNativeJsonGenerator$configureOneAbi$1$1$3.invoke(ExternalNativeJsonGenerator.kt:247)
+  	at com.android.build.gradle.tasks.ExternalNativeJsonGenerator$configureOneAbi$1$1$3.invoke(ExternalNativeJsonGenerator.kt:247)
+  	at com.android.build.gradle.internal.cxx.timing.TimingEnvironmentKt.time(TimingEnvironment.kt:32)
+  	at com.android.build.gradle.tasks.ExternalNativeJsonGenerator.configureOneAbi(ExternalNativeJsonGenerator.kt:247)
+  	at com.android.build.gradle.tasks.ExternalNativeJsonGenerator.configure(ExternalNativeJsonGenerator.kt:113)
+  	at com.android.build.gradle.tasks.ExternalNativeBuildJsonTask.doTaskAction(ExternalNativeBuildJsonTask.kt:89)
+  	at com.android.build.gradle.internal.tasks.UnsafeOutputsTask$taskAction$$inlined$recordTaskAction$1.invoke(BaseTask.kt:59)
+  	at com.android.build.gradle.internal.tasks.Blocks.recordSpan(Blocks.java:51)
+  	at com.android.build.gradle.internal.tasks.UnsafeOutputsTask.taskAction(UnsafeOutputsTask.kt:81)
+  	at jdk.internal.reflect.GeneratedMethodAccessor363.invoke(Unknown Source)
+  	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+  	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+  	at org.gradle.internal.reflect.JavaMethod.invoke(JavaMethod.java:125)
+  	at org.gradle.api.internal.project.taskfactory.StandardTaskAction.doExecute(StandardTaskAction.java:58)
+  	at org.gradle.api.internal.project.taskfactory.StandardTaskAction.execute(StandardTaskAction.java:51)
+  	at org.gradle.api.internal.project.taskfactory.StandardTaskAction.execute(StandardTaskAction.java:29)
+  	at org.gradle.api.internal.tasks.execution.TaskExecution$3.run(TaskExecution.java:252)
+  	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:29)
+  	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:26)
+  	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
+  	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
+  	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:166)
+  	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
+  	at org.gradle.internal.operations.DefaultBuildOperationRunner.run(DefaultBuildOperationRunner.java:47)
+  	at org.gradle.api.internal.tasks.execution.TaskExecution.executeAction(TaskExecution.java:237)
+  	at org.gradle.api.internal.tasks.execution.TaskExecution.executeActions(TaskExecution.java:220)
+  	at org.gradle.api.internal.tasks.execution.TaskExecution.executeWithPreviousOutputFiles(TaskExecution.java:203)
+  	at org.gradle.api.internal.tasks.execution.TaskExecution.execute(TaskExecution.java:170)
+  	at org.gradle.internal.execution.steps.ExecuteStep.executeInternal(ExecuteStep.java:105)
+  	at org.gradle.internal.execution.steps.ExecuteStep.access$000(ExecuteStep.java:44)
+  	at org.gradle.internal.execution.steps.ExecuteStep$1.call(ExecuteStep.java:59)
+  	at org.gradle.internal.execution.steps.ExecuteStep$1.call(ExecuteStep.java:56)
+  	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:209)
+  	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:204)
+  	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
+  	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
+  	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:166)
+  	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
+  	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:53)
+  	at org.gradle.internal.execution.steps.ExecuteStep.execute(ExecuteStep.java:56)
+  	at org.gradle.internal.execution.steps.ExecuteStep.execute(ExecuteStep.java:44)
+  	at org.gradle.internal.execution.steps.CancelExecutionStep.execute(CancelExecutionStep.java:42)
+  	at org.gradle.internal.execution.steps.TimeoutStep.executeWithoutTimeout(TimeoutStep.java:75)
+  	at org.gradle.internal.execution.steps.TimeoutStep.execute(TimeoutStep.java:55)
+  	at org.gradle.internal.execution.steps.PreCreateOutputParentsStep.execute(PreCreateOutputParentsStep.java:50)
+  	at org.gradle.internal.execution.steps.PreCreateOutputParentsStep.execute(PreCreateOutputParentsStep.java:28)
+  	at org.gradle.internal.execution.steps.RemovePreviousOutputsStep.execute(RemovePreviousOutputsStep.java:68)
+  	at org.gradle.internal.execution.steps.RemovePreviousOutputsStep.execute(RemovePreviousOutputsStep.java:38)
+  	at org.gradle.internal.execution.steps.BroadcastChangingOutputsStep.execute(BroadcastChangingOutputsStep.java:61)
+  	at org.gradle.internal.execution.steps.BroadcastChangingOutputsStep.execute(BroadcastChangingOutputsStep.java:26)
+  	at org.gradle.internal.execution.steps.CaptureOutputsAfterExecutionStep.execute(CaptureOutputsAfterExecutionStep.java:69)
+  	at org.gradle.internal.execution.steps.CaptureOutputsAfterExecutionStep.execute(CaptureOutputsAfterExecutionStep.java:46)
+  	at org.gradle.internal.execution.steps.ResolveInputChangesStep.execute(ResolveInputChangesStep.java:39)
+  	at org.gradle.internal.execution.steps.ResolveInputChangesStep.execute(ResolveInputChangesStep.java:28)
+  	at org.gradle.internal.execution.steps.BuildCacheStep.executeWithoutCache(BuildCacheStep.java:189)
+  	at org.gradle.internal.execution.steps.BuildCacheStep.lambda$execute$1(BuildCacheStep.java:75)
+  	at org.gradle.internal.Either$Right.fold(Either.java:176)
+  	at org.gradle.internal.execution.caching.CachingState.fold(CachingState.java:62)
+  	at org.gradle.internal.execution.steps.BuildCacheStep.execute(BuildCacheStep.java:73)
+  	at org.gradle.internal.execution.steps.BuildCacheStep.execute(BuildCacheStep.java:48)
+  	at org.gradle.internal.execution.steps.StoreExecutionStateStep.execute(StoreExecutionStateStep.java:46)
+  	at org.gradle.internal.execution.steps.StoreExecutionStateStep.execute(StoreExecutionStateStep.java:35)
+  	at org.gradle.internal.execution.steps.SkipUpToDateStep.executeBecause(SkipUpToDateStep.java:75)
+  	at org.gradle.internal.execution.steps.SkipUpToDateStep.lambda$execute$2(SkipUpToDateStep.java:53)
+  	at java.base/java.util.Optional.orElseGet(Optional.java:364)
+  	at org.gradle.internal.execution.steps.SkipUpToDateStep.execute(SkipUpToDateStep.java:53)
+  	at org.gradle.internal.execution.steps.SkipUpToDateStep.execute(SkipUpToDateStep.java:35)
+  	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsFinishedStep.execute(MarkSnapshottingInputsFinishedStep.java:37)
+  	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsFinishedStep.execute(MarkSnapshottingInputsFinishedStep.java:27)
+  	at org.gradle.internal.execution.steps.ResolveIncrementalCachingStateStep.executeDelegate(ResolveIncrementalCachingStateStep.java:49)
+  	at org.gradle.internal.execution.steps.ResolveIncrementalCachingStateStep.executeDelegate(ResolveIncrementalCachingStateStep.java:27)
+  	at org.gradle.internal.execution.steps.AbstractResolveCachingStateStep.execute(AbstractResolveCachingStateStep.java:71)
+  	at org.gradle.internal.execution.steps.AbstractResolveCachingStateStep.execute(AbstractResolveCachingStateStep.java:39)
+  	at org.gradle.internal.execution.steps.ResolveChangesStep.execute(ResolveChangesStep.java:64)
+  	at org.gradle.internal.execution.steps.ResolveChangesStep.execute(ResolveChangesStep.java:35)
+  	at org.gradle.internal.execution.steps.ValidateStep.execute(ValidateStep.java:62)
+  	at org.gradle.internal.execution.steps.ValidateStep.execute(ValidateStep.java:40)
+  	at org.gradle.internal.execution.steps.AbstractCaptureStateBeforeExecutionStep.execute(AbstractCaptureStateBeforeExecutionStep.java:76)
+  	at org.gradle.internal.execution.steps.AbstractCaptureStateBeforeExecutionStep.execute(AbstractCaptureStateBeforeExecutionStep.java:45)
+  	at org.gradle.internal.execution.steps.AbstractSkipEmptyWorkStep.executeWithNonEmptySources(AbstractSkipEmptyWorkStep.java:136)
+  	at org.gradle.internal.execution.steps.AbstractSkipEmptyWorkStep.execute(AbstractSkipEmptyWorkStep.java:61)
+  	at org.gradle.internal.execution.steps.AbstractSkipEmptyWorkStep.execute(AbstractSkipEmptyWorkStep.java:38)
+  	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsStartedStep.execute(MarkSnapshottingInputsStartedStep.java:38)
+  	at org.gradle.internal.execution.steps.LoadPreviousExecutionStateStep.execute(LoadPreviousExecutionStateStep.java:36)
+  	at org.gradle.internal.execution.steps.LoadPreviousExecutionStateStep.execute(LoadPreviousExecutionStateStep.java:23)
+  	at org.gradle.internal.execution.steps.HandleStaleOutputsStep.execute(HandleStaleOutputsStep.java:75)
+  	at org.gradle.internal.execution.steps.HandleStaleOutputsStep.execute(HandleStaleOutputsStep.java:41)
+  	at org.gradle.internal.execution.steps.AssignMutableWorkspaceStep.lambda$execute$0(AssignMutableWorkspaceStep.java:35)
+  	at org.gradle.api.internal.tasks.execution.TaskExecution$4.withWorkspace(TaskExecution.java:297)
+  	at org.gradle.internal.execution.steps.AssignMutableWorkspaceStep.execute(AssignMutableWorkspaceStep.java:31)
+  	at org.gradle.internal.execution.steps.AssignMutableWorkspaceStep.execute(AssignMutableWorkspaceStep.java:22)
+  	at org.gradle.internal.execution.steps.ChoosePipelineStep.execute(ChoosePipelineStep.java:40)
+  	at org.gradle.internal.execution.steps.ChoosePipelineStep.execute(ChoosePipelineStep.java:23)
+  	at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.lambda$execute$2(ExecuteWorkBuildOperationFiringStep.java:67)
+  	at java.base/java.util.Optional.orElseGet(Optional.java:364)
+  	at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.execute(ExecuteWorkBuildOperationFiringStep.java:67)
+  	at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.execute(ExecuteWorkBuildOperationFiringStep.java:39)
+  	at org.gradle.internal.execution.steps.IdentityCacheStep.execute(IdentityCacheStep.java:46)
+  	at org.gradle.internal.execution.steps.IdentityCacheStep.execute(IdentityCacheStep.java:34)
+  	at org.gradle.internal.execution.steps.IdentifyStep.execute(IdentifyStep.java:47)
+  	at org.gradle.internal.execution.steps.IdentifyStep.execute(IdentifyStep.java:34)
+  	at org.gradle.internal.execution.impl.DefaultExecutionEngine$1.execute(DefaultExecutionEngine.java:64)
+  	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.executeIfValid(ExecuteActionsTaskExecuter.java:132)
+  	at org.gradle.api.internal.tasks.execution.ExecuteActionsTaskExecuter.execute(ExecuteActionsTaskExecuter.java:121)
+  	at org.gradle.api.internal.tasks.execution.ProblemsTaskPathTrackingTaskExecuter.execute(ProblemsTaskPathTrackingTaskExecuter.java:41)
+  	at org.gradle.api.internal.tasks.execution.FinalizePropertiesTaskExecuter.execute(FinalizePropertiesTaskExecuter.java:46)
+  	at org.gradle.api.internal.tasks.execution.ResolveTaskExecutionModeExecuter.execute(ResolveTaskExecutionModeExecuter.java:51)
+  	at org.gradle.api.internal.tasks.execution.SkipTaskWithNoActionsExecuter.execute(SkipTaskWithNoActionsExecuter.java:57)
+  	at org.gradle.api.internal.tasks.execution.SkipOnlyIfTaskExecuter.execute(SkipOnlyIfTaskExecuter.java:74)
+  	at org.gradle.api.internal.tasks.execution.CatchExceptionTaskExecuter.execute(CatchExceptionTaskExecuter.java:36)
+  	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.executeTask(EventFiringTaskExecuter.java:77)
+  	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.call(EventFiringTaskExecuter.java:55)
+  	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter$1.call(EventFiringTaskExecuter.java:52)
+  	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:209)
+  	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:204)
+  	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
+  	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
+  	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:166)
+  	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
+  	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:53)
+  	at org.gradle.api.internal.tasks.execution.EventFiringTaskExecuter.execute(EventFiringTaskExecuter.java:52)
+  	at org.gradle.execution.plan.LocalTaskNodeExecutor.execute(LocalTaskNodeExecutor.java:45)
+  	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$InvokeNodeExecutorsAction.execute(DefaultTaskExecutionGraph.java:347)
+  	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$InvokeNodeExecutorsAction.execute(DefaultTaskExecutionGraph.java:334)
+  	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.lambda$execute$0(DefaultTaskExecutionGraph.java:330)
+  	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:84)
+  	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.execute(DefaultTaskExecutionGraph.java:330)
+  	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph$BuildOperationAwareExecutionAction.execute(DefaultTaskExecutionGraph.java:319)
+  	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.execute(DefaultPlanExecutor.java:459)
+  	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.run(DefaultPlanExecutor.java:376)
+  	at org.gradle.execution.plan.DefaultPlanExecutor.process(DefaultPlanExecutor.java:111)
+  	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph.executeWithServices(DefaultTaskExecutionGraph.java:144)
+  	at org.gradle.execution.taskgraph.DefaultTaskExecutionGraph.execute(DefaultTaskExecutionGraph.java:129)
+  	at org.gradle.execution.SelectedTaskExecutionAction.execute(SelectedTaskExecutionAction.java:35)
+  	at org.gradle.execution.DryRunBuildExecutionAction.execute(DryRunBuildExecutionAction.java:51)
+  	at org.gradle.execution.BuildOperationFiringBuildWorkerExecutor$ExecuteTasks.call(BuildOperationFiringBuildWorkerExecutor.java:54)
+  	at org.gradle.execution.BuildOperationFiringBuildWorkerExecutor$ExecuteTasks.call(BuildOperationFiringBuildWorkerExecutor.java:43)
+  	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:209)
+  	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:204)
+  	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:66)
+  	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:59)
+  	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:166)
+  	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:59)
+  	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:53)
+  	at org.gradle.execution.BuildOperationFiringBuildWorkerExecutor.execute(BuildOperationFiringBuildWorkerExecutor.java:40)
+  	at org.gradle.internal.build.DefaultBuildLifecycleController.lambda$executeTasks$10(DefaultBuildLifecycleController.java:313)
+  	at org.gradle.internal.model.StateTransitionController.doTransition(StateTransitionController.java:266)
+  	at org.gradle.internal.model.StateTransitionController.lambda$tryTransition$8(StateTransitionController.java:177)
+  	at org.gradle.internal.work.DefaultSynchronizer.withLock(DefaultSynchronizer.java:45)
+  	at org.gradle.internal.model.StateTransitionController.tryTransition(StateTransitionController.java:177)
+  	at org.gradle.internal.build.DefaultBuildLifecycleController.executeTasks(DefaultBuildLifecycleController.java:304)
+  	at org.gradle.internal.build.DefaultBuildWorkGraphController$DefaultBuildWorkGraph.runWork(DefaultBuildWorkGraphController.java:220)
+  	at org.gradle.internal.work.DefaultWorkerLeaseService.withLocks(DefaultWorkerLeaseService.java:263)
+  	at org.gradle.internal.work.DefaultWorkerLeaseService.runAsWorkerThread(DefaultWorkerLeaseService.java:127)
+  	at org.gradle.composite.internal.DefaultBuildController.doRun(DefaultBuildController.java:181)
+  	at org.gradle.composite.internal.DefaultBuildController.access$000(DefaultBuildController.java:50)
+  	at org.gradle.composite.internal.DefaultBuildController$BuildOpRunnable.lambda$run$0(DefaultBuildController.java:198)
+  	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:84)
+  	at org.gradle.composite.internal.DefaultBuildController$BuildOpRunnable.run(DefaultBuildController.java:198)
+  	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
+  	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+  	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+  	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:47)
+  	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+  	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+  	at java.base/java.lang.Thread.run(Thread.java:840)
+  Caused by: com.android.ide.common.process.ProcessException: Error while executing process /Users/lovewcc/Library/Android/sdk/cmake/3.22.1/bin/cmake with arguments {-H/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/src/main/jni -DCMAKE_SYSTEM_NAME=Android -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_SYSTEM_VERSION=24 -DANDROID_PLATFORM=android-24 -DANDROID_ABI=arm64-v8a -DCMAKE_ANDROID_ARCH_ABI=arm64-v8a -DANDROID_NDK=/Users/lovewcc/Library/Android/sdk/ndk/27.1.12297006 -DCMAKE_ANDROID_NDK=/Users/lovewcc/Library/Android/sdk/ndk/27.1.12297006 -DCMAKE_TOOLCHAIN_FILE=/Users/lovewcc/Library/Android/sdk/ndk/27.1.12297006/build/cmake/android.toolchain.cmake -DCMAKE_MAKE_PROGRAM=/Users/lovewcc/Library/Android/sdk/cmake/3.22.1/bin/ninja -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/build/intermediates/cxx/Debug/1b1h5m4p/obj/arm64-v8a -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/build/intermediates/cxx/Debug/1b1h5m4p/obj/arm64-v8a -DCMAKE_BUILD_TYPE=Debug -DCMAKE_FIND_ROOT_PATH=/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/.cxx/Debug/1b1h5m4p/prefab/arm64-v8a/prefab -B/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/.cxx/Debug/1b1h5m4p/arm64-v8a -GNinja -DPROJECT_BUILD_DIR=/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android/app/build -DPROJECT_ROOT_DIR=/Users/lovewcc/Documents/Me/ReactNative/RNlogss/android -DREACT_ANDROID_DIR=/Users/lovewcc/Documents/Me/ReactNative/RNlogss/node_modules/react-native/ReactAndroid -DANDROID_STL=c++_shared -DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON}
+  	at com.android.build.gradle.internal.process.GradleProcessResult.buildProcessException(GradleProcessResult.java:73)
+  	at com.android.build.gradle.internal.process.GradleProcessResult.assertNormalExitValue(GradleProcessResult.java:48)
+  	at com.android.build.gradle.internal.cxx.process.ExecuteProcessKt.execute(ExecuteProcess.kt:277)
+  	... 172 more
+  Caused by: org.gradle.process.ProcessExecutionException: Process 'command '/Users/lovewcc/Library/Android/sdk/cmake/3.22.1/bin/cmake'' finished with non-zero exit value 1
+  	at org.gradle.process.internal.DefaultExecHandle$ExecResultImpl.assertNormalExitValue(DefaultExecHandle.java:443)
+  	at com.android.build.gradle.internal.process.GradleProcessResult.assertNormalExitValue(GradleProcessResult.java:46)
+  	... 173 more
+
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --debug option to get more log output.
+> Run with --scan to generate a Build Scan (Powered by Develocity).
+> Get more help at https://help.gradle.org.
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.0.0/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD FAILED in 1s
+16 actionable tasks: 1 executed, 15 up-to-date
+Watched directory hierarchies: [/Users/lovewcc/Documents/Me/ReactNative/RNlogss/node_modules/@react-native/gradle-plugin, /Users/lovewcc/Documents/Me/ReactNative/RNlogss/android]

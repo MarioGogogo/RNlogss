@@ -1,5 +1,5 @@
 /**
- * RNLogs SDK Phase 1 测试页面（含上报系统）
+ * RNLogs SDK 测试页面（支持 Phase 1 & Phase 2）
  */
 
 import {useEffect, useState, useCallback} from 'react';
@@ -11,9 +11,9 @@ import {
   Pressable,
   ScrollView,
   Text,
+  Platform,
 } from 'react-native';
 import {RNLogs, LogLevel} from './src';
-import {Platform} from 'react-native';
 
 type LogItem = {
   id: number;
@@ -22,7 +22,7 @@ type LogItem = {
   onPress: () => void;
 };
 
-const UPLOAD_ENDPOINT = 'http://192.168.5.67:8080/api/v1/logs';
+const UPLOAD_ENDPOINT = 'http://172.20.10.3:8080/api/v1/logs';
 
 function chunk<T>(arr: T[], size: number): T[][] {
   const res: T[][] = [];
@@ -46,39 +46,54 @@ function renderButtons(items: LogItem[]) {
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
+  const [activeTab, setActiveTab] = useState<'phase1' | 'phase2'>('phase1');
   const [logCount, setLogCount] = useState(0);
   const [offlineSize, setOfflineSize] = useState(0);
+
+  // Phase 2 State
+  const [jsiAvailable, setJsiAvailable] = useState(false);
+  const [cppQueueSize, setCppQueueSize] = useState(0);
+  const [perfTime, setPerfTime] = useState<number | null>(null);
+  const [lastLogWritten, setLastLogWritten] = useState<string>('');
 
   const refreshOfflineSize = useCallback(async () => {
     const size = await RNLogs.getOfflineSize();
     setOfflineSize(size);
   }, []);
 
+  const refreshCppQueueSize = useCallback(() => {
+    if (global.__rnlogsInternal) {
+      setCppQueueSize(global.__rnlogsInternal.getQueueSize());
+      setJsiAvailable(true);
+    } else {
+      setJsiAvailable(false);
+    }
+  }, []);
+
   useEffect(() => {
     RNLogs.init({
-      enablePerformanceCollector: false, // 是否开启定时性能指标采集（默认 true）
-      environment: 'development', // 运行环境，如 development / staging / production
-      release: '1.0.0', // 应用版本号，用于日志归档和筛选
+      enablePerformanceCollector: false,
+      environment: 'development',
+      release: '1.0.0',
       device: {
         deviceId: `dev-${Platform.OS}`,
         platform: Platform.OS,
         osVersion: Platform.Version?.toString() ?? 'unknown',
       },
-      maxBatchSize: 5, // 每批最大日志条数，达到即触发 flush
-      flushIntervalMs: 3000, // 定时 flush 间隔（毫秒）
-      tags: {platform: 'android', version: '1.0.0'}, // 全局标签，每条日志都会携带
+      maxBatchSize: 5,
+      flushIntervalMs: 3000,
+      tags: {platform: 'android', version: '1.0.0'},
       beforeSend: event => {
-        // 日志发送前的拦截钩子，返回 null 则丢弃该条
         if (event.level === LogLevel.VERBOSE) {
           return null;
         }
         return event;
       },
       upload: {
-        endpoint: UPLOAD_ENDPOINT, // 日志上报的服务端地址
-        maxRetries: 2, // 上报失败后最大重试次数
-        retryDelayMs: 1000, // 重试间隔（毫秒）
-        batchSize: 5, // 单次上报的日志条数
+        endpoint: UPLOAD_ENDPOINT,
+        maxRetries: 2,
+        retryDelayMs: 1000,
+        batchSize: 5,
       },
     });
 
@@ -88,23 +103,22 @@ function App() {
       email: 'test@example.com',
     });
 
-    // RNLogs.addBreadcrumb('App launched', 'lifecycle');
-    // RNLogs.trackScreen('HomeScreen');
-    //  RNLogs.log(LogLevel.DEBUG, 'Debug info', {detail: 42});
     RNLogs.log(LogLevel.INFO, 'App初始化加载', {foo: 'bar'});
-   
 
-    // 定时刷新离线队列大小
-    const timer = setInterval(refreshOfflineSize, 3000);
+    const timer = setInterval(() => {
+      refreshOfflineSize();
+      refreshCppQueueSize();
+    }, 1000);
 
     return () => {
       clearInterval(timer);
       RNLogs.destroy();
     };
-  }, [refreshOfflineSize]);
+  }, [refreshOfflineSize, refreshCppQueueSize]);
 
   const bump = () => setLogCount(c => c + 1);
 
+  // Phase 1 Actions
   const actions: LogItem[] = [
     {
       id: 1,
@@ -288,52 +302,218 @@ function App() {
     },
   ];
 
+  // Phase 2 JSI Actions
+  const writeJsiSingleLog = () => {
+    if (!global.__rnlogsInternal) {
+      alert('JSI 接口未安装');
+      return;
+    }
+    const logMsg = `JSI 手动单条日志: ${Date.now()}`;
+    const event = {
+      level: 'INFO',
+      message: logMsg,
+      timestamp: Date.now(),
+      tag: 'jsi_manual',
+    };
+    const str = JSON.stringify(event);
+    global.__rnlogsInternal.writeLog(str);
+    setLastLogWritten(str);
+    refreshCppQueueSize();
+  };
+
+  const writeJsiLogBatch = () => {
+    if (!global.__rnlogsInternal) {
+      alert('JSI 接口未安装');
+      return;
+    }
+    const batchData = [
+      {level: 'DEBUG', message: `Batch log 1 at ${Date.now()}`, timestamp: Date.now()},
+      {level: 'INFO', message: `Batch log 2 at ${Date.now()}`, timestamp: Date.now()},
+      {level: 'WARN', message: `Batch log 3 at ${Date.now()}`, timestamp: Date.now()},
+    ];
+    const str = JSON.stringify(batchData);
+    global.__rnlogsInternal.writeLogBatch(str);
+    setLastLogWritten(str);
+    refreshCppQueueSize();
+  };
+
+  const runJsiPerformanceTest = () => {
+    if (!global.__rnlogsInternal) {
+      alert('JSI 接口未安装');
+      return;
+    }
+    const startTime = Date.now();
+    const count = 500;
+    for (let i = 0; i < count; i++) {
+      global.__rnlogsInternal.writeLog(
+        JSON.stringify({
+          level: 'DEBUG',
+          message: `Performance test log #${i}`,
+          timestamp: Date.now(),
+        }),
+      );
+    }
+    const duration = Date.now() - startTime;
+    setPerfTime(duration);
+    refreshCppQueueSize();
+  };
+
+  const clearJsiQueue = () => {
+    if (!global.__rnlogsInternal) {
+      alert('JSI 接口未安装');
+      return;
+    }
+    global.__rnlogsInternal.flush();
+    setLastLogWritten('');
+    setPerfTime(null);
+    refreshCppQueueSize();
+  };
+
   return (
     <View style={styles.root}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+      
+      {/* 头部 Tab 导航栏 */}
+      <View style={styles.tabBar}>
+        <Pressable
+          style={[styles.tabItem, activeTab === 'phase1' && styles.tabActive]}
+          onPress={() => setActiveTab('phase1')}>
+          <Text style={[styles.tabText, activeTab === 'phase1' && styles.tabActiveText]}>
+            Phase 1 (JS MVP)
+          </Text>
+        </Pressable>
+        <Pressable
+          style={[styles.tabItem, activeTab === 'phase2' && styles.tabActive]}
+          onPress={() => setActiveTab('phase2')}>
+          <Text style={[styles.tabText, activeTab === 'phase2' && styles.tabActiveText]}>
+            Phase 2 (JSI C++)
+          </Text>
+        </Pressable>
+      </View>
+
       <ScrollView contentContainerStyle={styles.container}>
-        <View style={styles.header}>
-          <Text style={styles.title}>RNLogs Phase 1</Text>
-          <Text style={styles.subtitle}>JS 层功能验证 + 上报系统</Text>
-        </View>
+        {activeTab === 'phase1' ? (
+          /* =================== Tab 1: Phase 1 =================== */
+          <View>
+            <View style={styles.header}>
+              <Text style={styles.title}>RNLogs Phase 1</Text>
+              <Text style={styles.subtitle}>JS 层功能验证 + 上报系统</Text>
+            </View>
 
-        <View style={styles.statusBar}>
-          <View style={styles.statusItem}>
-            <Text style={styles.statusValue}>{logCount}</Text>
-            <Text style={styles.statusLabel}>已触发操作</Text>
+            <View style={styles.statusBar}>
+              <View style={styles.statusItem}>
+                <Text style={styles.statusValue}>{logCount}</Text>
+                <Text style={styles.statusLabel}>已触发操作</Text>
+              </View>
+              <View style={styles.statusDivider} />
+              <View style={styles.statusItem}>
+                <Text style={styles.statusValue}>{offlineSize}</Text>
+                <Text style={styles.statusLabel}>离线队列</Text>
+              </View>
+            </View>
+
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>手动日志</Text>
+              {renderButtons([actions[0]])}
+            </View>
+
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>JS 常见错误</Text>
+              {renderButtons(actions.slice(1, 7))}
+            </View>
+
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>网络与异步</Text>
+              {renderButtons(actions.slice(7, 10))}
+            </View>
+
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>操作与面包屑</Text>
+              {renderButtons(actions.slice(10, 12))}
+            </View>
+
+            <View style={styles.section}>
+              {renderButtons([actions[12]])}
+            </View>
+
+            <Text style={styles.endpoint}>上报接口: {UPLOAD_ENDPOINT}</Text>
           </View>
-          <View style={styles.statusDivider} />
-          <View style={styles.statusItem}>
-            <Text style={styles.statusValue}>{offlineSize}</Text>
-            <Text style={styles.statusLabel}>离线队列</Text>
+        ) : (
+          /* =================== Tab 2: Phase 2 =================== */
+          <View>
+            <View style={styles.header}>
+              <Text style={styles.title}>RNLogs Phase 2</Text>
+              <Text style={styles.subtitle}>JSI 高性能通信通道验证（JS → C++）</Text>
+            </View>
+
+            {/* JSI & C++ 状态面板 */}
+            <View style={styles.jsiDashboard}>
+              <View style={styles.jsiRow}>
+                <Text style={styles.jsiLabel}>JSI 注入状态:</Text>
+                <Text style={[styles.jsiValue, jsiAvailable ? styles.statusSuccess : styles.statusFail]}>
+                  {jsiAvailable ? '已注入 (Available)' : '未挂载 (Unavailable)'}
+                </Text>
+              </View>
+              <View style={styles.jsiRow}>
+                <Text style={styles.jsiLabel}>C++ 内存队列长度:</Text>
+                <Text style={styles.jsiHighlight}>{cppQueueSize} 条</Text>
+              </View>
+              {perfTime !== null && (
+                <View style={styles.jsiRow}>
+                  <Text style={styles.jsiLabel}>500条压测耗时:</Text>
+                  <Text style={styles.jsiHighlightSuccess}>{perfTime} ms</Text>
+                </View>
+              )}
+            </View>
+
+            {/* C++ JSI 测试操作区 */}
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>JSI 同步交互接口</Text>
+              
+              <View style={styles.buttonRow}>
+                <View style={styles.buttonCell}>
+                  <Pressable style={[styles.button, {backgroundColor: '#2563eb'}]} onPress={writeJsiSingleLog}>
+                    <Text style={styles.buttonText}>单条同步写入 C++</Text>
+                  </Pressable>
+                </View>
+                <View style={styles.buttonCell}>
+                  <Pressable style={[styles.button, {backgroundColor: '#7c3aed'}]} onPress={writeJsiLogBatch}>
+                    <Text style={styles.buttonText}>批量同步写入 C++</Text>
+                  </Pressable>
+                </View>
+              </View>
+
+              <View style={styles.buttonRow}>
+                <View style={styles.buttonCell}>
+                  <Pressable style={[styles.button, {backgroundColor: '#ea580c'}]} onPress={runJsiPerformanceTest}>
+                    <Text style={styles.buttonText}>500 条高频压测</Text>
+                  </Pressable>
+                </View>
+                <View style={styles.buttonCell}>
+                  <Pressable style={[styles.button, {backgroundColor: '#64748b'}]} onPress={clearJsiQueue}>
+                    <Text style={styles.buttonText}>清空 C++ 内存队列</Text>
+                  </Pressable>
+                </View>
+              </View>
+            </View>
+
+            {/* 最近写入的内容监控 */}
+            {lastLogWritten ? (
+              <View style={styles.monitorSection}>
+                <Text style={styles.monitorTitle}>最近发送的日志报文 (JS 侧展示):</Text>
+                <Text style={styles.monitorContent} numberOfLines={6}>
+                  {lastLogWritten}
+                </Text>
+              </View>
+            ) : null}
+
+            <View style={[styles.section, {marginTop: 20}]}>
+              <Text style={[styles.sectionTitle, {textAlign: 'center'}]}>
+                C++ 层直接托管于 LogQueue 内存 RingBuffer
+              </Text>
+            </View>
           </View>
-        </View>
-
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>手动日志</Text>
-          {renderButtons([actions[0]])}
-        </View>
-
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>JS 常见错误</Text>
-          {renderButtons(actions.slice(1, 7))}
-        </View>
-
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>网络与异步</Text>
-          {renderButtons(actions.slice(7, 10))}
-        </View>
-
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>操作与面包屑</Text>
-          {renderButtons(actions.slice(10, 12))}
-        </View>
-
-        <View style={styles.section}>
-          {renderButtons([actions[11]])}
-        </View>
-
-        <Text style={styles.endpoint}>上报接口: {UPLOAD_ENDPOINT}</Text>
+        )}
       </ScrollView>
     </View>
   );
@@ -358,23 +538,49 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f8fafc',
   },
+  tabBar: {
+    flexDirection: 'row',
+    backgroundColor: '#fff',
+    paddingTop: Platform.OS === 'ios' ? 44 : 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#e2e8f0',
+  },
+  tabItem: {
+    flex: 1,
+    paddingVertical: 14,
+    alignItems: 'center',
+    borderBottomWidth: 2,
+    borderBottomColor: 'transparent',
+  },
+  tabActive: {
+    borderBottomColor: '#2563eb',
+  },
+  tabText: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#64748b',
+  },
+  tabActiveText: {
+    color: '#2563eb',
+  },
   container: {
     paddingHorizontal: 20,
-    paddingVertical: 32,
+    paddingVertical: 24,
   },
   header: {
     alignItems: 'center',
     marginBottom: 20,
   },
   title: {
-    fontSize: 26,
+    fontSize: 24,
     fontWeight: '800',
     color: '#0f172a',
   },
   subtitle: {
-    fontSize: 14,
+    fontSize: 13,
     color: '#64748b',
     marginTop: 4,
+    textAlign: 'center',
   },
   statusBar: {
     flexDirection: 'row',
@@ -409,6 +615,48 @@ const styles = StyleSheet.create({
     height: 30,
     backgroundColor: '#e2e8f0',
   },
+  jsiDashboard: {
+    backgroundColor: '#1e293b',
+    borderRadius: 12,
+    padding: 16,
+    marginBottom: 24,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 4,
+  },
+  jsiRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginVertical: 6,
+  },
+  jsiLabel: {
+    color: '#94a3b8',
+    fontSize: 14,
+    fontWeight: '500',
+  },
+  jsiValue: {
+    fontSize: 14,
+    fontWeight: '700',
+  },
+  jsiHighlight: {
+    color: '#38bdf8',
+    fontSize: 16,
+    fontWeight: '800',
+  },
+  jsiHighlightSuccess: {
+    color: '#4ade80',
+    fontSize: 16,
+    fontWeight: '800',
+  },
+  statusSuccess: {
+    color: '#4ade80',
+  },
+  statusFail: {
+    color: '#f87171',
+  },
   section: {
     marginBottom: 20,
   },
@@ -430,7 +678,7 @@ const styles = StyleSheet.create({
   },
   button: {
     paddingVertical: 14,
-    paddingHorizontal: 18,
+    paddingHorizontal: 12,
     borderRadius: 12,
     shadowColor: '#000',
     shadowOffset: {width: 0, height: 2},
@@ -444,7 +692,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: '#fff',
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: '600',
     textAlign: 'center',
   },
@@ -454,6 +702,28 @@ const styles = StyleSheet.create({
     fontSize: 11,
     marginTop: 4,
     marginBottom: 20,
+  },
+  monitorSection: {
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    padding: 16,
+    borderWidth: 1,
+    borderColor: '#e2e8f0',
+    marginBottom: 16,
+  },
+  monitorTitle: {
+    fontSize: 12,
+    color: '#64748b',
+    fontWeight: '600',
+    marginBottom: 6,
+  },
+  monitorContent: {
+    fontFamily: Platform.OS === 'ios' ? 'Courier New' : 'monospace',
+    fontSize: 12,
+    color: '#334155',
+    backgroundColor: '#f1f5f9',
+    padding: 10,
+    borderRadius: 8,
   },
 });
 

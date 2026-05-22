@@ -16,6 +16,8 @@ import {OperationCollector} from './collectors/OperationCollector';
 import {PerformanceCollector} from './collectors/PerformanceCollector';
 import {UploadQueue} from './uploader/UploadQueue';
 import type {UploadConfig} from './uploader/UploadConfig';
+import {NativeModules} from 'react-native';
+import './specs/NativeRNLogs';
 
 class RNLogsModule {
   private config: RNLogsConfig = {};
@@ -48,6 +50,16 @@ class RNLogsModule {
     this.tags = this.config.tags ?? {};
     this.sessionId = this.generateSessionId();
 
+    // 触发 NativeModule 并同步安装 JSI 绑定
+    if (NativeModules.RNLogsModule && typeof NativeModules.RNLogsModule.install === 'function') {
+      try {
+        const success = NativeModules.RNLogsModule.install();
+        console.log('[RNLogs] JSI installation result:', success);
+      } catch (err) {
+        console.error('[RNLogs] Failed to install JSI:', err);
+      }
+    }
+
     // Native init (no-op in Phase 1)
     NoOpNativeModule.init(this.config as Record<string, unknown>).catch(
       () => {
@@ -66,6 +78,11 @@ class RNLogsModule {
     this.uploadQueue = new UploadQueue(uploadConfig);
     this.syncBatchMeta();
 
+    // 初始化 C++ 层配置
+    if (global.__rnlogsInternal) {
+      global.__rnlogsInternal.initialize(JSON.stringify(this.config));
+    }
+
     // 批处理器：flush 时交给上传队列
     this.batcher = new LogBatcher(
       batch => {
@@ -74,6 +91,11 @@ class RNLogsModule {
         NoOpNativeModule.sendBatch(batch).catch(() => {
           /* no-op */
         });
+
+        // 写入 C++
+        if (global.__rnlogsInternal) {
+          global.__rnlogsInternal.writeLogBatch(JSON.stringify(batch));
+        }
       },
       this.config,
     );
@@ -160,6 +182,9 @@ class RNLogsModule {
     NoOpNativeModule.flush().catch(() => {
       /* no-op */
     });
+    if (global.__rnlogsInternal) {
+      global.__rnlogsInternal.flush();
+    }
   }
 
   async getOfflineSize(): Promise<number> {
@@ -212,6 +237,11 @@ class RNLogsModule {
     }
 
     this.batcher?.add(enriched);
+
+    // Phase 2: 单条实时写入 C++
+    if (global.__rnlogsInternal) {
+      global.__rnlogsInternal.writeLog(JSON.stringify(enriched));
+    }
   }
 
   /** 同步批次元数据到 UploadQueue/Uploader */
