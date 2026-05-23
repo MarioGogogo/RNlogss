@@ -2,6 +2,10 @@
 
 `RNlogss` 是一个针对 React Native 应用设计的高性能、高可靠性的日志采集与自动上报 SDK 及其实例工程。目前已完成 **Phase 1（JS 业务层监控与上报）**、**Phase 2（TurboModule + JSI 高性能 C++ 桥接通道）** 及 **Phase 4（崩溃捕获与上报、Protobuf 序列化、gRPC 对接与生产级性能打磨）** 的核心功能建设与双端联调。
 
+<p align="center">
+  <img src="doc/phase.png" alt="RNlogss 项目架构图" width="800" />
+</p>
+
 ---
 
 ## 🚀 项目概览 (Project Overview)
