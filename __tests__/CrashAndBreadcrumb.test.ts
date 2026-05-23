@@ -1,4 +1,4 @@
-import { RNLogs } from '../src';
+import { RNLogs } from 'react-native-rnlogs';
 
 describe('Crash & Breadcrumb Tracking Unit Tests', () => {
   beforeEach(() => {

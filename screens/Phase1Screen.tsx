@@ -4,7 +4,7 @@
 
 import {useEffect, useState, useCallback} from 'react';
 import {ScrollView, View, Text} from 'react-native';
-import {RNLogs, LogLevel} from '../src';
+import {RNLogs, LogLevel} from 'react-native-rnlogs';
 import {
   sharedStyles,
   UPLOAD_ENDPOINT,

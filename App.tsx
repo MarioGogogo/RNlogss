@@ -12,7 +12,7 @@ import {
   Text,
   Platform,
 } from 'react-native';
-import {RNLogs, LogLevel} from './src';
+import {RNLogs, LogLevel} from 'react-native-rnlogs';
 import {UPLOAD_ENDPOINT} from './screens/shared';
 import Phase1Screen from './screens/Phase1Screen';
 import Phase2Screen from './screens/Phase2Screen';

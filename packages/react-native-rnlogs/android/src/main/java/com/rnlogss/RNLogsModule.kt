@@ -255,4 +255,10 @@ class RNLogsModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
     private external fun nativeHasPendingCrashReport(): Boolean
     private external fun nativeConsumeCrashReport(): String?
     private external fun nativeFetchPbBatchToUpload(): ByteArray?
+
+    companion object {
+        init {
+            System.loadLibrary("react-native-rnlogs")
+        }
+    }
 }
