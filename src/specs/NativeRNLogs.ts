@@ -5,6 +5,11 @@ declare global {
     writeLogBatch: (batchJson: string) => void;
     getQueueSize: () => number;
     flush: () => void;
+    clear: () => void;
+    addBreadcrumb: (message: string, category: string) => void;
+    hasPendingCrashReport: () => boolean;
+    consumeCrashReport: () => string;
+    triggerNativeCrash: () => void;
   } | undefined;
 }
 

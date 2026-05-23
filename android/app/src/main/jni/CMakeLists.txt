@@ -14,6 +14,10 @@ target_sources(
     OnLoad.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../cpp/jsi/RNLogsJSIBinding.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../cpp/core/LogQueue.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../cpp/core/BreadcrumbTracker.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../cpp/core/CrashReporter.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../cpp/core/CrashHandlerAndroid.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../cpp/core/LogSerializer.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../cpp/utils/Compression.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../cpp/utils/Crypto.cpp
 )
@@ -27,8 +31,9 @@ target_include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../cpp/utils
 )
 
-# 链接日志库
+# 链接日志库与 zlib
 target_link_libraries(
     appmodules
     log
+    z
 )

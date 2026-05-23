@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package rnlogs;
+
+import "log_event.proto";
+
+message LogBatch {
+  string batch_id = 1;
+  string session_id = 2;
+  uint64 timestamp = 3;
+  repeated LogEvent events = 4;
+}

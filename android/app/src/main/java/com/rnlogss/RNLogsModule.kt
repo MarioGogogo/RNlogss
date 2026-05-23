@@ -12,6 +12,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
 import org.json.JSONObject
 import java.io.IOException
@@ -25,7 +26,6 @@ class RNLogsModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         .readTimeout(15, TimeUnit.SECONDS)
         .build()
 
-    // 默认测试 Endpoint，也可以动态获取
     private var uploadEndpoint = "https://httpbin.org/post"
     private var uploadSessionId = "sess-${System.currentTimeMillis()}"
     private val handler = Handler(Looper.getMainLooper())
@@ -37,7 +37,6 @@ class RNLogsModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
             try {
                 performUpload()
             } finally {
-                // 每 5 秒轮询拉取并上报一次
                 handler.postDelayed(this, 5000)
             }
         }
@@ -59,11 +58,9 @@ class RNLogsModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
                 if (sessionId.isNotEmpty()) {
                     uploadSessionId = sessionId
                 }
-                // 获取 Android App 本地缓存私有目录并传入 C++
                 val cacheDir = reactApplicationContext.cacheDir.absolutePath + "/rnlogs"
                 nativeInstall(jsiRuntimePtr, cacheDir)
 
-                // 初始化成功后启动原生轮询上报器
                 startPoller()
                 return true
             } else {
@@ -89,65 +86,127 @@ class RNLogsModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
 
         Thread {
             try {
-                val batchJson = nativeFetchBatchToUpload()
-                if (batchJson != null) {
-                    val jsonObject = JSONObject(batchJson)
-                    val batchId = jsonObject.getString("batchId")
-                    val logsArray = jsonObject.getJSONArray("logs")
+                // 1. 优先检测并上报挂起的崩溃报告
+                if (nativeHasPendingCrashReport()) {
+                    val crashJson = nativeConsumeCrashReport()
+                    if (crashJson != null) {
+                        uploadCrashReport(crashJson)
+                    }
+                }
 
-                    // 构造统一的上报 Payload 结构，补齐必填字段
-                    val payload = JSONObject()
-                    payload.put("sdk", "rnlogs")
-                    payload.put("sdkVersion", "1.0.0")
-                    payload.put("batchId", batchId)
-                    payload.put("sessionId", uploadSessionId)
-                    payload.put("timestamp", System.currentTimeMillis())
-                    payload.put("batchSize", logsArray.length())
-                    payload.put("events", logsArray)
+                // 2. 处理常规日志块上报
+                if (uploadEndpoint.contains("grpc")) {
+                    val packet = nativeFetchPbBatchToUpload()
+                    if (packet != null && packet.size >= 4) {
+                        val len0 = packet[0].toInt() and 0xFF
+                        val len1 = packet[1].toInt() and 0xFF
+                        val len2 = packet[2].toInt() and 0xFF
+                        val len3 = packet[3].toInt() and 0xFF
+                        val batchIdLen = (len0 shl 24) or (len1 shl 16) or (len2 shl 8) or len3
+                        
+                        val batchId = String(packet, 4, batchIdLen, Charsets.UTF_8)
+                        val pbData = packet.copyOfRange(4 + batchIdLen, packet.size)
 
-                    val mediaType = "application/json; charset=utf-8".toMediaType()
-                    val body = RequestBody.create(
-                        mediaType,
-                        payload.toString()
-                    )
+                        // 拼装 5 字节 gRPC 头 (1字节压缩标识 + 4字节大端长度) + pb 数据
+                        val pbLen = pbData.size
+                        val grpcFrame = ByteArray(5 + pbLen)
+                        grpcFrame[0] = 0 // 未压缩
+                        grpcFrame[1] = ((pbLen ushr 24) and 0xFF).toByte()
+                        grpcFrame[2] = ((pbLen ushr 16) and 0xFF).toByte()
+                        grpcFrame[3] = ((pbLen ushr 8) and 0xFF).toByte()
+                        grpcFrame[4] = (pbLen and 0xFF).toByte()
+                        System.arraycopy(pbData, 0, grpcFrame, 5, pbLen)
 
-                    val request = Request.Builder()
-                        .url(uploadEndpoint)
-                        .post(body)
-                        .build()
+                        val mediaType = "application/grpc".toMediaType()
+                        val body = grpcFrame.toRequestBody(mediaType)
+                        val request = Request.Builder()
+                            .url(uploadEndpoint)
+                            .post(body)
+                            .build()
 
-                    client.newCall(request).enqueue(object : Callback {
-                        override fun onFailure(call: Call, e: IOException) {
-                            android.util.Log.e("RNLogsModule", "Failed to upload log batch: $batchId due to network error", e)
-                            nativeConfirmUpload(batchId, false)
-                            isUploading = false
-                        }
+                        client.newCall(request).enqueue(object : Callback {
+                            override fun onFailure(call: Call, e: IOException) {
+                                android.util.Log.e("RNLogsModule", "Failed to upload log batch (gRPC): $batchId due to network error", e)
+                                nativeConfirmUpload(batchId, false)
+                                isUploading = false
+                            }
 
-                        override fun onResponse(call: Call, response: Response) {
-                            response.use {
-                                val code = response.code
-                                if (response.isSuccessful) {
-                                    android.util.Log.i("RNLogsModule", "Successfully uploaded log batch: $batchId")
-                                    nativeConfirmUpload(batchId, true)
-                                    isUploading = false
-                                    // 递归调用继续拉取下一批积压文件，快速清空磁盘
-                                    performUpload()
-                                } else {
-                                    android.util.Log.w("RNLogsModule", "Server rejected logs: $code for $batchId")
-                                    if (code in 400..499) {
-                                        // 4xx 视为不可恢复的客户端/格式错误，直接丢弃以防队头阻塞
+                            override fun onResponse(call: Call, response: Response) {
+                                response.use {
+                                    val code = response.code
+                                    if (response.isSuccessful) {
+                                        android.util.Log.i("RNLogsModule", "Successfully uploaded log batch (gRPC): $batchId")
                                         nativeConfirmUpload(batchId, true)
+                                        isUploading = false
+                                        performUpload()
                                     } else {
-                                        // 5xx 或其他暂时性服务错误，重试
-                                        nativeConfirmUpload(batchId, false)
+                                        android.util.Log.w("RNLogsModule", "gRPC server rejected logs: $code for $batchId")
+                                        if (code in 400..499) {
+                                            nativeConfirmUpload(batchId, true)
+                                        } else {
+                                            nativeConfirmUpload(batchId, false)
+                                        }
+                                        isUploading = false
                                     }
-                                    isUploading = false
                                 }
                             }
-                        }
-                    })
+                        })
+                    } else {
+                        isUploading = false
+                    }
                 } else {
-                    isUploading = false
+                    val batchJson = nativeFetchBatchToUpload()
+                    if (batchJson != null) {
+                        val jsonObject = JSONObject(batchJson)
+                        val batchId = jsonObject.getString("batchId")
+                        val logsArray = jsonObject.getJSONArray("logs")
+
+                        val payload = JSONObject()
+                        payload.put("sdk", "rnlogs")
+                        payload.put("sdkVersion", "1.0.0")
+                        payload.put("batchId", batchId)
+                        payload.put("sessionId", uploadSessionId)
+                        payload.put("timestamp", System.currentTimeMillis())
+                        payload.put("batchSize", logsArray.length())
+                        payload.put("events", logsArray)
+
+                        val mediaType = "application/json; charset=utf-8".toMediaType()
+                        val body = payload.toString().toRequestBody(mediaType)
+                        val request = Request.Builder()
+                            .url(uploadEndpoint)
+                            .post(body)
+                            .build()
+
+                        client.newCall(request).enqueue(object : Callback {
+                            override fun onFailure(call: Call, e: IOException) {
+                                android.util.Log.e("RNLogsModule", "Failed to upload log batch: $batchId due to network error", e)
+                                nativeConfirmUpload(batchId, false)
+                                isUploading = false
+                            }
+
+                            override fun onResponse(call: Call, response: Response) {
+                                response.use {
+                                    val code = response.code
+                                    if (response.isSuccessful) {
+                                        android.util.Log.i("RNLogsModule", "Successfully uploaded log batch: $batchId")
+                                        nativeConfirmUpload(batchId, true)
+                                        isUploading = false
+                                        performUpload()
+                                    } else {
+                                        android.util.Log.w("RNLogsModule", "Server rejected logs: $code for $batchId")
+                                        if (code in 400..499) {
+                                            nativeConfirmUpload(batchId, true)
+                                        } else {
+                                            nativeConfirmUpload(batchId, false)
+                                        }
+                                        isUploading = false
+                                    }
+                                }
+                            }
+                        })
+                    } else {
+                        isUploading = false
+                    }
                 }
             } catch (e: Exception) {
                 android.util.Log.e("RNLogsModule", "Exception in Native Uploader thread", e)
@@ -156,7 +215,44 @@ class RNLogsModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
         }.start()
     }
 
+    private fun uploadCrashReport(crashJson: String) {
+        try {
+            val crashObj = JSONObject(crashJson)
+            val payload = JSONObject()
+            payload.put("sdk", "rnlogs")
+            payload.put("sdkVersion", "1.0.0")
+            payload.put("batchId", "crash-" + System.currentTimeMillis())
+            payload.put("sessionId", uploadSessionId)
+            payload.put("timestamp", System.currentTimeMillis())
+            payload.put("batchSize", 1)
+            
+            val eventsArray = org.json.JSONArray()
+            eventsArray.put(crashObj)
+            payload.put("events", eventsArray)
+
+            val mediaType = "application/json; charset=utf-8".toMediaType()
+            val body = payload.toString().toRequestBody(mediaType)
+            val request = Request.Builder()
+                .url(uploadEndpoint)
+                .post(body)
+                .build()
+
+            client.newCall(request).execute().use { response ->
+                if (response.isSuccessful) {
+                    android.util.Log.i("RNLogsModule", "Successfully uploaded native crash report.")
+                } else {
+                    android.util.Log.w("RNLogsModule", "Server rejected native crash report: ${response.code}")
+                }
+            }
+        } catch (e: Exception) {
+            android.util.Log.e("RNLogsModule", "Failed to upload native crash report", e)
+        }
+    }
+
     private external fun nativeInstall(jsiRuntimePtr: Long, cacheDir: String)
     private external fun nativeFetchBatchToUpload(): String?
     private external fun nativeConfirmUpload(batchId: String, success: Boolean)
+    private external fun nativeHasPendingCrashReport(): Boolean
+    private external fun nativeConsumeCrashReport(): String?
+    private external fun nativeFetchPbBatchToUpload(): ByteArray?
 }

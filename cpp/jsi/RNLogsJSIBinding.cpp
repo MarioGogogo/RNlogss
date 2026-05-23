@@ -1,5 +1,7 @@
 #include "RNLogsJSIBinding.h"
 #include <android/log.h>
+#include "../core/BreadcrumbTracker.h"
+#include "../core/CrashReporter.h"
 
 #ifdef LOG_TAG
 #undef LOG_TAG
@@ -119,6 +121,74 @@ void RNLogsJSIBinding::install(Runtime& runtime) {
         }
     );
     rnlogsInternal.setProperty(runtime, "flush", flush);
+
+    // 5.5 clear
+    auto clear = Function::createFromHostFunction(
+        runtime,
+        PropNameID::forAscii(runtime, "clear"),
+        0,
+        [](Runtime& rt, const Value& thisVal, const Value* args, size_t count) -> Value {
+            getQueue()->clear();
+            return Value::undefined();
+        }
+    );
+    rnlogsInternal.setProperty(runtime, "clear", clear);
+
+    // 6. addBreadcrumb
+    auto addBreadcrumb = Function::createFromHostFunction(
+        runtime,
+        PropNameID::forAscii(runtime, "addBreadcrumb"),
+        2,
+        [](Runtime& rt, const Value& thisVal, const Value* args, size_t count) -> Value {
+            if (count > 0 && args[0].isString()) {
+                std::string msg = args[0].asString(rt).utf8(rt);
+                std::string cat = "default";
+                if (count > 1 && args[1].isString()) {
+                    cat = args[1].asString(rt).utf8(rt);
+                }
+                rnlogs::BreadcrumbTracker::getInstance().addBreadcrumb(msg, cat);
+            }
+            return Value::undefined();
+        }
+    );
+    rnlogsInternal.setProperty(runtime, "addBreadcrumb", addBreadcrumb);
+
+    // 7. hasPendingCrashReport
+    auto hasPendingCrashReport = Function::createFromHostFunction(
+        runtime,
+        PropNameID::forAscii(runtime, "hasPendingCrashReport"),
+        0,
+        [](Runtime& rt, const Value& thisVal, const Value* args, size_t count) -> Value {
+            bool has = rnlogs::CrashReporter::getInstance().hasPendingCrashReport();
+            return Value(has);
+        }
+    );
+    rnlogsInternal.setProperty(runtime, "hasPendingCrashReport", hasPendingCrashReport);
+
+    // 8. consumeCrashReport
+    auto consumeCrashReport = Function::createFromHostFunction(
+        runtime,
+        PropNameID::forAscii(runtime, "consumeCrashReport"),
+        0,
+        [](Runtime& rt, const Value& thisVal, const Value* args, size_t count) -> Value {
+            std::string report = rnlogs::CrashReporter::getInstance().consumeCrashReport();
+            return Value(String::createFromUtf8(rt, report));
+        }
+    );
+    rnlogsInternal.setProperty(runtime, "consumeCrashReport", consumeCrashReport);
+
+    // 9. triggerNativeCrash (Debug Only)
+    auto triggerNativeCrash = Function::createFromHostFunction(
+        runtime,
+        PropNameID::forAscii(runtime, "triggerNativeCrash"),
+        0,
+        [](Runtime& rt, const Value& thisVal, const Value* args, size_t count) -> Value {
+            volatile int* p = nullptr;
+            *p = 0xDEAD; // 故意解引用空指针，产生 SIGSEGV 硬件信号
+            return Value::undefined();
+        }
+    );
+    rnlogsInternal.setProperty(runtime, "triggerNativeCrash", triggerNativeCrash);
 
     // 挂载到全局
     runtime.global().setProperty(runtime, "__rnlogsInternal", rnlogsInternal);

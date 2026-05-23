@@ -162,6 +162,9 @@ class RNLogsModule {
     data?: Record<string, unknown>,
   ): void {
     this.operationCollector?.addBreadcrumb(message, category, data);
+    if (global.__rnlogsInternal) {
+      global.__rnlogsInternal.addBreadcrumb(message, category ?? 'default');
+    }
   }
 
   trackAction(action: string, data?: Record<string, unknown>): void {
