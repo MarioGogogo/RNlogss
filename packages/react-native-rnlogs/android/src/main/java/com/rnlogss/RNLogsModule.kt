@@ -3,6 +3,7 @@ package com.rnlogss
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
+import com.facebook.react.module.annotations.ReactModule
 import android.os.Handler
 import android.os.Looper
 import okhttp3.Call
@@ -18,6 +19,7 @@ import org.json.JSONObject
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 
+@ReactModule(name = "RNLogsModule")
 class RNLogsModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
 
     private val client = OkHttpClient.Builder()
@@ -48,9 +50,13 @@ class RNLogsModule(reactContext: ReactApplicationContext) : ReactContextBaseJava
 
     @ReactMethod(isBlockingSynchronousMethod = true)
     fun install(endpoint: String, sessionId: String): Boolean {
+        android.util.Log.i("RNLogsModule", "install called with endpoint: $endpoint, sessionId: $sessionId")
         try {
             val jsContext = reactApplicationContext.javaScriptContextHolder
+            android.util.Log.i("RNLogsModule", "reactApplicationContext: $reactApplicationContext")
+            android.util.Log.i("RNLogsModule", "jsContext: $jsContext")
             val jsiRuntimePtr = jsContext?.get() ?: 0L
+            android.util.Log.i("RNLogsModule", "jsiRuntimePtr: $jsiRuntimePtr")
             if (jsiRuntimePtr != 0L) {
                 if (endpoint.isNotEmpty()) {
                     uploadEndpoint = endpoint

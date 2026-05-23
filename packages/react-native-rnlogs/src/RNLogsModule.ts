@@ -16,8 +16,11 @@ import {OperationCollector} from './collectors/OperationCollector';
 import {PerformanceCollector} from './collectors/PerformanceCollector';
 import {UploadQueue} from './uploader/UploadQueue';
 import type {UploadConfig} from './uploader/UploadConfig';
-import {NativeModules} from 'react-native';
+import {NativeModules, TurboModuleRegistry} from 'react-native';
 import './specs/NativeRNLogs';
+import './specs/NativeRNLogsModule';
+
+const RNLogsNativeModule = TurboModuleRegistry.get('RNLogsModule') || NativeModules.RNLogsModule;
 
 class RNLogsModule {
   private config: RNLogsConfig = {};
@@ -51,10 +54,11 @@ class RNLogsModule {
     this.sessionId = this.generateSessionId();
 
     // 触发 NativeModule 并同步安装 JSI 绑定
-    if (NativeModules.RNLogsModule && typeof NativeModules.RNLogsModule.install === 'function') {
+    console.log('[RNLogs] RNLogsNativeModule found:', !!RNLogsNativeModule, 'install method:', RNLogsNativeModule ? typeof RNLogsNativeModule.install : 'undefined');
+    if (RNLogsNativeModule && typeof RNLogsNativeModule.install === 'function') {
       try {
         const endpoint = this.config.upload?.endpoint ?? '';
-        const success = NativeModules.RNLogsModule.install(endpoint, this.sessionId);
+        const success = RNLogsNativeModule.install(endpoint, this.sessionId);
         console.log('[RNLogs] JSI installation result:', success);
       } catch (err) {
         console.error('[RNLogs] Failed to install JSI:', err);

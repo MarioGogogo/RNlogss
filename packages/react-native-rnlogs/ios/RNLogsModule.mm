@@ -15,28 +15,21 @@ RCT_EXPORT_MODULE(RNLogsModule);
     return YES;
 }
 
-RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(install:(NSString *)endpoint sessionId:(NSString *)sessionId) {
-    RCTBridge *bridge = [RCTBridge currentBridge];
-    // 使用 RCTCXXBridge 强转获取 jsi::Runtime 指针
-    RCTCXXBridge *cxxBridge = (RCTCXXBridge *)bridge;
-    if (!cxxBridge) {
-        return @NO;
-    }
-    
-    facebook::jsi::Runtime *runtime = (facebook::jsi::Runtime *)cxxBridge.runtime;
-    if (!runtime) {
-        return @NO;
-    }
+- (void)installJSIBindingsWithRuntime:(facebook::jsi::Runtime &)runtime
+                          callInvoker:(const std::shared_ptr<facebook::react::CallInvoker> &)callInvoker {
+    NSLog(@"[RNLogsModule] installJSIBindingsWithRuntime called.");
     
     // 安装 JSI 绑定
-    facebook::jsi::RNLogsJSIBinding::install(*runtime);
+    facebook::jsi::RNLogsJSIBinding::install(runtime);
     
-    // 确定 iOS 本地缓存私有目录
+    // 确定 iOS 本地缓存私有目录并初始化崩溃处理
     NSString *cacheDir = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject];
     NSString *rnlogsCacheDir = [cacheDir stringByAppendingPathComponent:@"rnlogs"];
-    
     [[CrashHandlerIOS sharedInstance] initializeWithCacheDir:rnlogsCacheDir];
-    
+}
+
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(install:(NSString *)endpoint sessionId:(NSString *)sessionId) {
+    NSLog(@"[RNLogsModule] Legacy install call bypassed in Bridgeless (handled by installJSIBindingsWithRuntime)");
     return @YES;
 }
 

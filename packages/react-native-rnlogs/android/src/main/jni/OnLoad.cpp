@@ -1,35 +1,10 @@
 #include <jni.h>
 #include <jsi/jsi.h>
-#include <DefaultComponentsRegistry.h>
-#include <DefaultTurboModuleManagerDelegate.h>
-#include <fbjni/fbjni.h>
-#include <autolinking.h>
 
-#include <FBReactNativeSpec.h>
-
-#include "../../../../../cpp/jsi/RNLogsJSIBinding.h"
-#include "../../../../../cpp/core/CrashReporter.h"
-#include "../../../../../cpp/core/CrashHandlerAndroid.h"
-#include "../../../../../cpp/core/LogSerializer.h"
-
-namespace facebook::react {
-
-void registerComponents(std::shared_ptr<const ComponentDescriptorProviderRegistry> registry) {
-  autolinking_registerProviders(registry);
-}
-
-std::shared_ptr<TurboModule> cxxModuleProvider(const std::string &name, const std::shared_ptr<CallInvoker> &jsInvoker) {
-  return autolinking_cxxModuleProvider(name, jsInvoker); 
-}
-
-std::shared_ptr<TurboModule> javaModuleProvider(const std::string &name, const JavaTurboModule::InitParams &params) {
-  if (auto module = FBReactNativeSpec_ModuleProvider(name, params)) {
-    return module;
-  }
-  return autolinking_ModuleProvider(name, params);
-}
-
-} // namespace facebook::react
+#include "RNLogsJSIBinding.h"
+#include "CrashReporter.h"
+#include "CrashHandlerAndroid.h"
+#include "LogSerializer.h"
 
 extern "C" JNIEXPORT __attribute__((visibility("default"))) void JNICALL
 Java_com_rnlogss_RNLogsModule_nativeInstall(JNIEnv* env, jobject thiz, jlong jsiRuntimePtr, jstring jCacheDir) {
@@ -149,9 +124,5 @@ Java_com_rnlogss_RNLogsModule_nativeConfirmUpload(JNIEnv* env, jobject thiz, jst
 }
 
 JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM *vm, void *) {
-  return facebook::jni::initialize(vm, [] {
-    facebook::react::DefaultTurboModuleManagerDelegate::cxxModuleProvider = &facebook::react::cxxModuleProvider;
-    facebook::react::DefaultTurboModuleManagerDelegate::javaModuleProvider = &facebook::react::javaModuleProvider;
-    facebook::react::DefaultComponentsRegistry::registerComponentDescriptorsFromEntryPoint = &facebook::react::registerComponents;
-  });
+    return JNI_VERSION_1_6;
 }

@@ -4,6 +4,9 @@ project(react-native-rnlogs)
 
 set(CMAKE_CXX_STANDARD 17)
 
+# 发现 ReactAndroid 依赖包
+find_package(ReactAndroid REQUIRED)
+
 # 编译 C++ 源码到 react-native-rnlogs 共享库中
 add_library(
     react-native-rnlogs
@@ -28,9 +31,10 @@ target_include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/../../../../cpp/utils
 )
 
-# 链接日志库与 zlib
+# 链接日志库、zlib 以及 React Native 的 JSI 动态库
 target_link_libraries(
     react-native-rnlogs
+    ReactAndroid::jsi
     log
     z
 )

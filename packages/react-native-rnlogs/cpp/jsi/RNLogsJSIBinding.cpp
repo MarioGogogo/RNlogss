@@ -1,13 +1,18 @@
 #include "RNLogsJSIBinding.h"
-#include <android/log.h>
 #include "../core/BreadcrumbTracker.h"
 #include "../core/CrashReporter.h"
 
+#ifdef __ANDROID__
+#include <android/log.h>
 #ifdef LOG_TAG
 #undef LOG_TAG
 #endif
 #define LOG_TAG "RNLogsJSI"
 #define LOGI(...) __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
+#else
+#include <iostream>
+#define LOGI(...) printf(__VA_ARGS__)
+#endif
 
 namespace facebook {
 namespace jsi {
