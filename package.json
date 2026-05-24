@@ -1,8 +1,10 @@
 {
   "name": "RNlogss",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "private": true,
   "scripts": {
+    "build:android": "./scripts/build-android-repack.sh release",
+    "build:android:debug": "./scripts/build-android.sh debug",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "lint": "eslint .",
