@@ -1,0 +1,6 @@
+# 排除 C++ 与 Gradle 构建缓存
+android/build/
+android/.cxx/
+
+# 排除本地打包压缩文件
+*.tgz
